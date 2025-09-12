@@ -25,7 +25,7 @@
 
   /* ---------- Watermark tokens ---------- */
   --watermark-image: url("/assets/4geekmenot_embossed.png");
-  --watermark-opacity: 0.10;        /* lowered since tiling can overwhelm */
+  --watermark-opacity: 0.08;        /* lowered since tiling can overwhelm */
   --watermark-size: min(70vw, 900px);          /* controls tile size */
   --watermark-repeat: no-repeat;       /* repeat pattern across page */
 }
