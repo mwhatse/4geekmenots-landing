@@ -25,7 +25,7 @@
 
   /* ---------- Watermark tokens ---------- */
   --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png");
-  --watermark-opacity: .9;                /* faint but visible */
+  --watermark-opacity: .7;                /* faint but visible */
   --watermark-size: min(80vw, 1100px);       /* centered logo size */
   --watermark-repeat: no-repeat;            /* show only once */
 }
