@@ -23,8 +23,10 @@
   --radius-lg: 20px;
   --radius-md: 14px;
 
-  /* Watermark tokens */
-  --watermark-image: url("/img/watermark-logo.png");
+  /* ---------- Watermark tokens ---------- */
+  /* Swap this line out with whichever variant you want */
+  --watermark-image: url("/assets/4geekmenot_embossed.png");
+
   --watermark-opacity: 0.12;
   --watermark-size: min(70vw, 900px);
   --watermark-repeat: no-repeat;
