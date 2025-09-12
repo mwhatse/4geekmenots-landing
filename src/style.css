@@ -26,8 +26,8 @@
   /* ---------- Watermark tokens ---------- */
   --watermark-image: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png");
   --watermark-opacity: 0.10;                
-  --watermark-size: 400px;                  /* smaller tile size for repeat */
-  --watermark-repeat: repeat;               /* repeat pattern across page */
+  --watermark-size: min(90vw, 1100px;                  /* smaller tile size for repeat */
+  --watermark-repeat: no-repeat;               /* repeat pattern across page */
 }
 
 /* ---------- Base reset ---------- */
