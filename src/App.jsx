@@ -4,10 +4,8 @@ import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
 /*
-  Paste this file exactly as-is into apps/app/src/App.jsx
-  - Clickable logo is an anchor <a className="logo" href="/">...</a>
-  - Hero uses inline style background: "var(--brand)" so color stays consistent
-  - No extra JS required
+  Minimal edits: rename brand to 4GeekMeNot (singular) across UI.
+  Links/structure/classes left intact.
 */
 
 export default function App() {
@@ -17,7 +15,7 @@ export default function App() {
       <header className="nav" role="banner">
         <div className="container nav-row">
           {/* Clickable logo (goes to site root) */}
-          <a className="logo" href="/" aria-label="4GeekMeNots home">4GeekMeNots</a>
+          <a className="logo" href="/" aria-label="4GeekMeNot home">4GeekMeNot</a>
 
           <nav className="nav-links" aria-label="Main navigation">
             <a href="#shop">Shop</a>
@@ -61,39 +59,39 @@ export default function App() {
         <div className="container">
           <h2 id="featured-heading">Featured Tees</h2>
 
-          <div className="product-grid" role="list">
-            {Array.isArray(products) && products.length ? (
-              products.map((p) => (
-                <article className="product" key={p.title} role="listitem">
-                  <img src={p.img} alt={p.title} />
-                  <h3>{p.title}</h3>
-                  {p.desc && <p>{p.desc}</p>}
-                  <a
-                    className="btn cta"
-                    href={p.url ?? STORE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Buy ${p.title} on Etsy`}
-                  >
-                    Buy on Etsy
-                  </a>
-                </article>
-              ))
-            ) : (
-              <p style={{ color: "var(--muted)" }}>
-                No products found — add listings to <code>src/products.js</code>.
-              </p>
-            )}
-          </div>
+        <div className="product-grid" role="list">
+          {Array.isArray(products) && products.length ? (
+            products.map((p) => (
+              <article className="product" key={p.title} role="listitem">
+                <img src={p.img} alt={p.title} />
+                <h3>{p.title}</h3>
+                {p.desc && <p>{p.desc}</p>}
+                <a
+                  className="btn cta"
+                  href={p.url ?? STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Buy ${p.title} on Etsy`}
+                >
+                  Buy on Etsy
+                </a>
+              </article>
+            ))
+          ) : (
+            <p style={{ color: "var(--muted)" }}>
+              No products found — add listings to <code>src/products.js</code>.
+            </p>
+          )}
+        </div>
         </div>
       </section>
 
       {/* ABOUT */}
       <section id="about" className="section" aria-labelledby="about-heading">
         <div className="container">
-          <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNots</h2>
+          <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNot</h2>
           <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
-            At 4Geekmenots, we believe clothing should be more than just something you wear—it should tell your story.
+            At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell your story.
             Our geek-inspired, bold, and playful designs celebrate individuality, humor, and confidence. Every piece is
             crafted to let you stand out, speak up, and proudly wear your story.
           </p>
@@ -105,7 +103,8 @@ export default function App() {
         <div className="container">
           <h2 id="contact-heading">Contact Us</h2>
           <p style={{ color: "var(--muted)" }}>
-            For questions or custom designs, email us at <strong>4geekmenots@gmail.com</strong>.
+            For questions or custom designs, email us at <strong>4geekmenot@gmail.com</strong>.
+            {/* If your email is different, edit the address above. */}
           </p>
         </div>
       </section>
@@ -113,7 +112,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer" role="contentinfo">
         <div className="container">
-          <small>© {new Date().getFullYear()} 4GeekMeNots — Wear Your Story</small>
+          <small>© {new Date().getFullYear()} 4GeekMeNot — Wear Your Story</small>
         </div>
       </footer>
     </div>
