@@ -61,11 +61,12 @@ body::before {
   background-image: var(--watermark-image);
   background-position: center;
   background-size: contain;
-  background-repeat: var(--watermark-repeat);
+  background-repeat: no-repeat;
   
   opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
+}
 }
 }
 
