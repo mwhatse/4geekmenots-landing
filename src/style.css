@@ -1,5 +1,5 @@
 /* apps/app/src/style.css
-   4GeekMeNot — global watermark (entire page)
+   4GeekMeNot — global watermark (entire page), visible on dark bg
 */
 
 /* ---------- Theme tokens ---------- */
@@ -23,9 +23,9 @@
   --radius-lg: 20px;
   --radius-md: 14px;
 
-  /* Watermark tokens (image lives in public/img/) */
+  /* Watermark tokens */
   --watermark-image: url("/img/watermark-logo.png");
-  --watermark-opacity: 0.08;
+  --watermark-opacity: 0.12;
   --watermark-size: min(70vw, 900px);
   --watermark-repeat: no-repeat;
 }
@@ -63,7 +63,9 @@ body::before{
   opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
-  filter: brightness(1.05) saturate(0.95);
+
+  /* MAKE BLACK LOGO SHOW ON DARK BG */
+  filter: invert(1) brightness(2) contrast(90%);
 }
 
 /* ---------- Typography ---------- */
@@ -94,7 +96,7 @@ img{ max-width:100%; display:block; }
 }
 .nav-row{ display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
 
-/* ---------- LOGO: solid brand yellow ---------- */
+/* ---------- LOGO ---------- */
 .logo{
   font-weight: 900; font-style: italic; letter-spacing: .2px;
   font-size: clamp(1.05rem, 0.9rem + 1.8vw, 1.6rem);
