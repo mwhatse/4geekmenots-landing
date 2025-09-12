@@ -25,9 +25,9 @@
 
   /* ---------- Watermark tokens ---------- */
   --watermark-image: url("/assets/4geekmenot_matte.png");
-  --watermark-opacity: 0.03;        /* lowered since tiling can overwhelm */
-  --watermark-size: 400px;          /* controls tile size */
-  --watermark-repeat: repeat;       /* repeat pattern across page */
+  --watermark-opacity: 0.12;        /* lowered since tiling can overwhelm */
+  --watermark-size: min(70vw, 900px);          /* controls tile size */
+  --watermark-repeat: no-repeat;       /* repeat pattern across page */
 }
 
 /* ---------- Base reset ---------- */
