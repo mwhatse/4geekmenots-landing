@@ -24,7 +24,7 @@
   --radius-md: 14px;
 
   /* ---------- Watermark tokens ---------- */
-  --watermark-image: url("/assets/4geekmenot_embossed.png");
+  --watermark-image: url("/assets/4geekmenot_watermark_shiny_08pct");
   --watermark-opacity: 0.10;                /* faint but visible */
   --watermark-size: min(80vw, 1100px);       /* centered logo size */
   --watermark-repeat: no-repeat;            /* show only once */
