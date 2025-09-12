@@ -31,7 +31,7 @@
   /* --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); */
 
   --watermark-opacity: 0.10;                /* adjust faintness */
-  --watermark-size: min(80vw, 1100px);      /* controls logo size */
+  --watermark-size: min(90vw, 1100px);      /* controls logo size */
   --watermark-repeat: no-repeat;            /* no-repeat for centered, repeat for tiled */
 }
 
