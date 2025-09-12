@@ -1,5 +1,5 @@
 /* apps/app/src/style.css
-   4GeekMeNot — global watermark (entire page), glossy logo tiled
+   4GeekMeNot — global watermark (embossed, centered)
 */
 
 /* ---------- Theme tokens ---------- */
@@ -25,9 +25,9 @@
 
   /* ---------- Watermark tokens ---------- */
   --watermark-image: url("/assets/4geekmenot_embossed.png");
-  --watermark-opacity: 0.2;        /* lowered since tiling can overwhelm */
-  --watermark-size: min(70vw, 900px);          /* controls tile size */
-  --watermark-repeat: no-repeat;       /* repeat pattern across page */
+  --watermark-opacity: 0.10;                /* faint but visible */
+  --watermark-size: min(70vw, 900px);       /* centered logo size */
+  --watermark-repeat: no-repeat;            /* show only once */
 }
 
 /* ---------- Base reset ---------- */
@@ -47,27 +47,22 @@ body{
   position: relative;
 }
 
-/* ---------- Watermark (GLOBAL - CENTERED + NUDGED) ---------- */
-body::before {
+/* ---------- Watermark (GLOBAL - CENTERED) ---------- */
+body::before{
   content: "";
   position: fixed;
-  left: 55%;                /* nudged a bit right (50% = centered) */
-  bottom: 15%;              /* nudged a bit higher (12% was your old value) */
+  left: 50%;
+  bottom: 12%;
   transform: translateX(-50%);
-  
   width: var(--watermark-size);
   height: var(--watermark-size);
-  
   background-image: var(--watermark-image);
   background-position: center;
   background-size: contain;
-  background-repeat: no-repeat;
-  
+  background-repeat: var(--watermark-repeat);
   opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
-}
-}
 }
 
 /* ---------- Typography ---------- */
