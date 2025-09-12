@@ -1,5 +1,5 @@
 /* apps/app/src/style.css
-   4GeekMeNot — global watermark (entire page), visible on dark bg
+   4GeekMeNot — global watermark (entire page), using glossy logo
 */
 
 /* ---------- Theme tokens ---------- */
@@ -24,9 +24,7 @@
   --radius-md: 14px;
 
   /* ---------- Watermark tokens ---------- */
-  /* Swap this line out with whichever variant you want */
-  --watermark-image: url("/assets/4geekmenot_embossed.png");
-
+  --watermark-image: url("/assets/4geekmenot_glossy.png");
   --watermark-opacity: 0.12;
   --watermark-size: min(70vw, 900px);
   --watermark-repeat: no-repeat;
@@ -65,9 +63,7 @@ body::before{
   opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
-
-  /* MAKE BLACK LOGO SHOW ON DARK BG */
-  filter: invert(1) brightness(2) contrast(90%);
+  /* removed invert/brightness filter so logo shows true colors */
 }
 
 /* ---------- Typography ---------- */
