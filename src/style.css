@@ -1,5 +1,5 @@
 /* apps/app/src/style.css
-   4GeekMeNot — global watermark (embossed, centered)
+   4GeekMeNot — global watermark (switch between variants by commenting/uncommenting)
 */
 
 /* ---------- Theme tokens ---------- */
@@ -24,10 +24,15 @@
   --radius-md: 14px;
 
   /* ---------- Watermark tokens ---------- */
-  --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png");
-  --watermark-opacity: .7;                /* faint but visible */
-  --watermark-size: min(80vw, 1100px);       /* centered logo size */
-  --watermark-repeat: no-repeat;            /* show only once */
+  /* 👇 Uncomment ONE line to activate that logo */
+  /* --watermark-image: url("/assets/4geekmenot_glossy.png"); */
+  --watermark-image: url("/assets/4geekmenot_matte.png");
+  /* --watermark-image: url("/assets/4geekmenot_embossed.png"); */
+  /* --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); */
+
+  --watermark-opacity: 0.10;                /* adjust faintness */
+  --watermark-size: min(80vw, 1100px);      /* controls logo size */
+  --watermark-repeat: no-repeat;            /* no-repeat for centered, repeat for tiled */
 }
 
 /* ---------- Base reset ---------- */
@@ -47,7 +52,7 @@ body{
   position: relative;
 }
 
-/* ---------- Watermark (GLOBAL - CENTERED) ---------- */
+/* ---------- Watermark (GLOBAL) ---------- */
 body::before{
   content: "";
   position: fixed;
