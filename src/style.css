@@ -24,7 +24,7 @@
   --radius-md: 14px;
 
   /* ---------- Watermark tokens ---------- */
-  --watermark-image: url("/assets/4geekmenot_glossy.png");
+  --watermark-image: url("/assets/4geekmenot_matte.png");
   --watermark-opacity: 0.03;        /* lowered since tiling can overwhelm */
   --watermark-size: 400px;          /* controls tile size */
   --watermark-repeat: repeat;       /* repeat pattern across page */
