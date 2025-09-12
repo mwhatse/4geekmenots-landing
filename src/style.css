@@ -1,6 +1,5 @@
 /* apps/app/src/style.css
-   4GeekMeNots — updated: solid-logo (brand yellow), preserved card tweaks
-   Paste this entire file over your existing style.css
+   4GeekMeNot — global watermark (entire page)
 */
 
 /* ---------- Theme tokens ---------- */
@@ -14,7 +13,7 @@
   --ink: #e8edf2;
   --muted: #b6c0c8;
 
-  --brand: #f6c10a;       /* primary yellow (brand) */
+  --brand: #f6c10a;
   --brand-2: #ffd24a;
   --brand-3: #ffc44d;
   --brand-4: #e6e9ec;
@@ -24,6 +23,7 @@
   --radius-lg: 20px;
   --radius-md: 14px;
 
+  /* Watermark tokens (image lives in public/img/) */
   --watermark-image: url("/img/watermark-logo.png");
   --watermark-opacity: 0.08;
   --watermark-size: min(70vw, 900px);
@@ -39,8 +39,7 @@ body{
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
                Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
                "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  background: radial-gradient(1200px 600px at 50% -10%, #0f1519 0%, var(--bg) 60%),
-              var(--bg);
+  background: radial-gradient(1200px 600px at 50% -10%, #0f1519 0%, var(--bg) 60%), var(--bg);
   color: var(--ink);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -48,7 +47,7 @@ body{
   position: relative;
 }
 
-/* ---------- Watermark (faint) ---------- */
+/* ---------- Watermark (GLOBAL) ---------- */
 body::before{
   content: "";
   position: fixed;
@@ -93,50 +92,22 @@ img{ max-width:100%; display:block; }
   border-bottom: 1px solid rgba(255,255,255,0.02);
   backdrop-filter: saturate(120%) blur(4px);
 }
-.nav-row{
-  display: flex; align-items: center; justify-content: space-between;
-  min-height: 64px;
-}
+.nav-row{ display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
 
-/* ---------- LOGO: solid brand yellow, italic, rotated ----------
-   (Gradient removed per your request; keeping rotation, italic, subtle shadow)
-*/
+/* ---------- LOGO: solid brand yellow ---------- */
 .logo{
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: .2px;
+  font-weight: 900; font-style: italic; letter-spacing: .2px;
   font-size: clamp(1.05rem, 0.9rem + 1.8vw, 1.6rem);
-
-  color: var(--brand);               /* solid brand color (no gradient) */
-  -webkit-text-fill-color: var(--brand);
-
-  display: inline-block;
-  transform-origin: left center;
-  transform: rotate(-1.4deg);
-  transition: transform .18s ease, filter .18s ease;
-  z-index: 30;
-  position: relative;
-  cursor: pointer;
-
-  /* subtle text shadow so yellow reads on dark background */
-  text-shadow:
-    0 6px 22px rgba(0,0,0,0.55),
-    0 1px 0 rgba(255,255,255,0.02);
+  color: var(--brand); -webkit-text-fill-color: var(--brand);
+  display: inline-block; transform-origin: left center; transform: rotate(-1.4deg);
+  transition: transform .18s ease, filter .18s ease; z-index: 30; position: relative; cursor: pointer;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.02);
   -webkit-font-smoothing: antialiased;
 }
-
-/* hover lift */
 @media (hover: hover) and (pointer: fine) {
-  .logo:hover{
-    transform: rotate(-0.7deg) translateY(-2px);
-    filter: drop-shadow(0 10px 24px rgba(0,0,0,0.32));
-  }
+  .logo:hover{ transform: rotate(-0.7deg) translateY(-2px); filter: drop-shadow(0 10px 24px rgba(0,0,0,0.32)); }
 }
-.logo:focus{
-  outline: 3px solid rgba(246,193,10,0.18);
-  outline-offset: 4px;
-  border-radius: 6px;
-}
+.logo:focus{ outline: 3px solid rgba(246,193,10,0.18); outline-offset: 4px; border-radius: 6px; }
 
 /* nav links */
 .nav-links{ display: flex; gap: 1rem; align-items: center; }
@@ -162,43 +133,23 @@ img{ max-width:100%; display:block; }
 }
 .btn.primary:hover{ filter: brightness(1.03); }
 
-/* CTA (Buy on Etsy) — bright, lifted */
+/* CTA */
 .btn.cta{
   background: linear-gradient(180deg, var(--brand-2) 0%, var(--brand) 100%);
   color: var(--brand-ink);
   border-color: rgba(0,0,0,0.25);
   padding: .85rem 1.25rem;
-  font-weight: 900;
-  border-radius: 999px;
-  box-shadow:
-    0 12px 34px rgba(0,0,0,0.56),
-    inset 0 -6px 18px rgba(0,0,0,0.12);
+  font-weight: 900; border-radius: 999px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.56), inset 0 -6px 18px rgba(0,0,0,0.12);
   transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
-  font-size: 1rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; position: relative;
 }
-.btn.cta:hover{
-  transform: translateY(-2px);
-  box-shadow:
-    0 20px 48px rgba(0,0,0,0.62),
-    inset 0 -6px 20px rgba(0,0,0,0.12);
-  filter: brightness(0.99);
-}
+.btn.cta:hover{ transform: translateY(-2px); box-shadow: 0 20px 48px rgba(0,0,0,0.62), inset 0 -6px 20px rgba(0,0,0,0.12); filter: brightness(0.99); }
 .btn.cta:active{ transform: translateY(0); }
-
 .btn.cta::before{
   content: "";
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: .6rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: inline-block; width: 18px; height: 18px; margin-right: .6rem;
+  background-size: contain; background-repeat: no-repeat; background-position: center;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23E05D1C' d='M6 2l1 3h10l1-3H6zm-2 5v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H4zm7 3a2 2 0 0 1 2 2v1h-4v-1a2 2 0 0 1 2-2z'/></svg>");
 }
 
@@ -208,15 +159,13 @@ img{ max-width:100%; display:block; }
 .lead{ color: var(--muted); font-size: clamp(1.15rem, 1rem + .9vw, 1.55rem); font-weight: 800; }
 .trust{ margin-top: .7rem; font-size: 1.05rem; color: var(--ink); }
 
-/* ---------- Product grid (cards slightly lighter) ---------- */
+/* ---------- Product grid ---------- */
 .product-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
 }
-@media (min-width: 1024px){
-  .product-grid{ grid-template-columns: repeat(3, 1fr); }
-}
+@media (min-width: 1024px){ .product-grid{ grid-template-columns: repeat(3, 1fr); } }
 .product{
   background: linear-gradient(180deg, rgba(255,255,255,0.01), var(--surface));
   border: 1px solid var(--border);
@@ -226,53 +175,29 @@ img{ max-width:100%; display:block; }
   display: flex; flex-direction: column; gap: .9rem;
   transition: transform .12s ease, box-shadow .12s ease;
 }
-.product:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 32px 90px rgba(0,0,0,0.62);
-}
+.product:hover{ transform: translateY(-6px); box-shadow: 0 32px 90px rgba(0,0,0,0.62); }
 .product img{
   background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.25));
   border-radius: calc(var(--radius-lg) - 8px);
-  padding: .85rem;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
+  padding: .85rem; aspect-ratio: 4 / 3; object-fit: contain;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
 }
 .product h3{ color: var(--ink); font-size: 1.15rem; margin-bottom: .1rem; }
 .product p{ color: var(--muted); font-size: 1rem; }
 .product .btn{ align-self: start; }
 
-/* ---------- Forms (Contact / Signup) ---------- */
-.signup{
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: .8rem;
+/* ---------- Forms ---------- */
+.signup{ display: grid; grid-template-columns: 1fr 1fr auto; gap: .8rem; }
+.signup input,.signup textarea{
+  outline: none; background: #0e1113; color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: .9rem 1rem; font-size: 1rem;
 }
-.signup input,
-.signup textarea{
-  outline: none;
-  background: #0e1113;
-  color: var(--ink);
-  border: 1px solid rgba(255,255,255,0.03);
-  border-radius: var(--radius-md);
-  padding: .9rem 1rem;
-  font-size: 1rem;
-}
-.signup input::placeholder,
-.signup textarea::placeholder{ color: #93a0a8; }
+.signup input::placeholder,.signup textarea::placeholder{ color: #93a0a8; }
 .signup button.btn{ padding: .9rem 1.1rem; }
-
-@media (max-width: 720px){
-  .signup{ grid-template-columns: 1fr; }
-}
+@media (max-width: 720px){ .signup{ grid-template-columns: 1fr; } }
 
 /* ---------- Footer ---------- */
-.footer{
-  border-top: 1px solid rgba(255,255,255,0.02);
-  background: var(--surface);
-  padding: 1.25rem 0;
-  margin-top: 1rem;
-}
+.footer{ border-top: 1px solid rgba(255,255,255,0.02); background: var(--surface); padding: 1.25rem 0; margin-top: 1rem; }
 .footer small{ color: var(--muted); }
 
 /* ---------- Utilities ---------- */
