@@ -51,7 +51,11 @@ body{
 body::before{
   content: "";
   position: fixed;
-  inset: 0;
+  left: 55%;        /* move right (higher % = further right) */
+  bottom: 15%;      /* move up (higher % = further up) */
+transform: translateX(-50%);
+background-position: center;
+
   background-image: var(--watermark-image);
   background-position: center;
   background-size: var(--watermark-size);
