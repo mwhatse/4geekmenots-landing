@@ -30,8 +30,8 @@
 /* --watermark-image: url("/assets/4geekmenot_matte.png");  */
 /* --watermark-image: url("/assets/4geekmenot_embossed.png"); */
 /* --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); */
- --watermark-image: url("/assets/4geekmenot_watermark_shiny_08pct.png");
-/* --watermark-image: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png"); */
+ /*--watermark-image: url("/assets/4geekmenot_watermark_shiny_08pct.png"); */
+ --watermark-image: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png"); 
 
 --watermark-opacity: 0.10;                /* adjust faintness */
 --watermark-size: min(90vw, 1100px);      /* controls logo size */
