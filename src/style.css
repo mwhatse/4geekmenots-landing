@@ -47,22 +47,26 @@ body{
   position: relative;
 }
 
-/* ---------- Watermark (GLOBAL - TILED) ---------- */
-body::before{
+/* ---------- Watermark (GLOBAL - CENTERED + NUDGED) ---------- */
+body::before {
   content: "";
   position: fixed;
-  left: 55%;        /* move right (higher % = further right) */
-  bottom: 15%;      /* move up (higher % = further up) */
-transform: translateX(-50%);
-background-position: center;
-
+  left: 55%;                /* nudged a bit right (50% = centered) */
+  bottom: 15%;              /* nudged a bit higher (12% was your old value) */
+  transform: translateX(-50%);
+  
+  width: var(--watermark-size);
+  height: var(--watermark-size);
+  
   background-image: var(--watermark-image);
   background-position: center;
-  background-size: var(--watermark-size);
+  background-size: contain;
   background-repeat: var(--watermark-repeat);
+  
   opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
+}
 }
 
 /* ---------- Typography ---------- */
