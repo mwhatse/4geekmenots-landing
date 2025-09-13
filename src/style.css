@@ -23,15 +23,14 @@ body::before {
   position: fixed;
   inset: 0;
 
-  //* ---- Logo options ---- */
-background: url("/assets/4geekmenot_embossed.png") repeat;
-/* background: url("/assets/4geekmenot_glossy.png") repeat; */
-/* background: url("/assets/4geekmenot_matte.png") repeat; */
-/* background: url("/assets/4geekmenot_watermark_shiny_06pct.png") no-repeat; */
-/* background: url("/assets/4geekmenot_watermark_shiny_08pct.png") repeat; */
-/* background: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png") repeat; */ /* <-- ACTIVE */
-/* background: url("/assets/og-image-1200x630.png") repeat; */
-
+  /* ---- Logo options ---- */
+  background: url("/assets/4geekmenot_embossed.png") repeat;
+  /* background: url("/assets/4geekmenot_glossy.png") repeat; */
+  /* background: url("/assets/4geekmenot_matte.png") repeat; */
+  /* background: url("/assets/4geekmenot_watermark_shiny_06pct.png") no-repeat; */
+  /* background: url("/assets/4geekmenot_watermark_shiny_08pct.png") repeat; */
+  /* background: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png") repeat; */ /* <-- ACTIVE */
+  /* background: url("/assets/og-image-1200x630.png") repeat; */
 
   background-size: 300px auto;
   opacity: 0.10;
