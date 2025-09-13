@@ -27,10 +27,11 @@ body::before {
   background: url("/assets/4geekmenot_embossed.png") repeat;
   /* background: url("/assets/4geekmenot_glossy.png") repeat; */
   /* background: url("/assets/4geekmenot_matte.png") repeat; */
-  /* background: url("/assets/4geekmenot_watermark_shiny_06pct.png") no-repeat; */
+  /* background: url("/assets/4geekmenot_watermark_shiny_06pct.png") repeat; */
   /* background: url("/assets/4geekmenot_watermark_shiny_08pct.png") repeat; */
-  /* background: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png") repeat; */ /* <-- ACTIVE */
+  /* background: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png") repeat; */
   /* background: url("/assets/og-image-1200x630.png") repeat; */
+  /* ---------------------- */
 
   background-size: 300px auto;
   opacity: 0.10;
@@ -55,21 +56,19 @@ body::before {
   position: absolute;
   inset: 0;
 
-  /* ---- Logo options ---- */
+  ---- Logo options ----
   background: url("/assets/4geekmenot_watermark_tile_shiny_06pct.png") repeat;
-  /* or switch to any of these:
-  background: url("/assets/4geekmenot_embossed.png") repeat;
-  background: url("/assets/4geekmenot_glossy.png") repeat;
-  background: url("/assets/4geekmenot_matte.png") repeat;
-  background: url("/assets/4geekmenot_watermark_shiny_06pct.png") repeat;
-  background: url("/assets/4geekmenot_watermark_shiny_08pct.png") repeat;
-  background: url("/assets/og-image-1200x630.png") repeat;
-  */
+  /* background: url("/assets/4geekmenot_embossed.png") repeat; */
+  /* background: url("/assets/4geekmenot_glossy.png") repeat; */
+  /* background: url("/assets/4geekmenot_matte.png") repeat; */
+  /* background: url("/assets/4geekmenot_watermark_shiny_06pct.png") repeat; */
+  /* background: url("/assets/4geekmenot_watermark_shiny_08pct.png") repeat; */
+  /* background: url("/assets/og-image-1200x630.png") repeat; */
 
   background-size: 300px auto;
   opacity: 0.10;
   z-index: 0;
-
+}
 
 .featured h2,
 .featured-grid,
@@ -77,7 +76,7 @@ body::before {
   position: relative;
   z-index: 1;
 }
-
+*/
 
 /* ---------- Header/logo ---------- */
 header {
