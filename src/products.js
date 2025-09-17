@@ -10,7 +10,7 @@ export const products = [
     img: "/img/mental-health-wealth.png", // or paste an Etsy image URL here
     desc: "Crowned edition—clean type, everyday weight.",
     url: "https://www.etsy.com/listing/4370730462/mental-health-is-wealth-shirt-crowned?ref=shop_home_active_1&logging_key=77a835de15ba8ff72cf4892a6216bdddfa2bf0cc%3A4370730462",
-    price: null,        // set to a number (e.g., 28) when you want prices visible
+    price: 26.99,        // set to a number (e.g., 28) when you want prices visible
     // salePrice: null, // optional
   },
 

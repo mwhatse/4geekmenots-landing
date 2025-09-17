@@ -3,12 +3,13 @@ import React from "react";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-// Currency formatter (USD, no cents by default)
+// Always show two decimals (USD)
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-    maximumFractionDigits: 0,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(n);
 
 export default function App() {
@@ -17,14 +18,15 @@ export default function App() {
       {/* NAV / HEADER */}
       <header className="nav" role="banner">
         <div className="container nav-row">
-          {/* Clickable logo (goes to site root) */}
           <a className="logo" href="/" aria-label="4GeekMeNot home">4GeekMeNot</a>
 
           <nav className="nav-links" aria-label="Main navigation">
             <a href="#shop">Shop</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a className="btn primary" href={STORE_URL} target="_blank" rel="noopener noreferrer">Shop Etsy</a>
+            <a className="btn primary" href={STORE_URL} target="_blank" rel="noopener noreferrer">
+              Shop Etsy
+            </a>
           </nav>
         </div>
       </header>
@@ -74,7 +76,7 @@ export default function App() {
                     <h3>{p.title}</h3>
                     {p.desc && <p>{p.desc}</p>}
 
-                    {/* PRICE (optional; shows only if p.price is a number) */}
+                    {/* PRICE (shows only if p.price is a number) */}
                     {hasPrice && (
                       <p className="price" aria-label={`Price for ${p.title}`}>
                         {onSale ? (
@@ -117,7 +119,7 @@ export default function App() {
       <section id="about" className="section" aria-labelledby="about-heading">
         <div className="container">
           <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNot</h2>
-          <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
+        <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
             At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell your story.
             Our geek-inspired, bold, and playful designs celebrate individuality, humor, and confidence. Every piece is
             crafted to let you stand out, speak up, and proudly wear your story.
