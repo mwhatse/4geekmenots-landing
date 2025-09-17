@@ -234,3 +234,18 @@ img{ max-width:100%; display:block; }
 .price .old { opacity: .6; text-decoration: line-through; margin-right: .5rem; font-weight: 700; }
 .price .new { color: var(--brand); font-weight: 900; }
 .price .from { font-weight: 700; opacity: .6; margin-left: .35rem; font-size: .95em; }
+/* --- Mobile: make the watermark logo bigger --- */
+@media (max-width: 640px) {
+  :root{
+    /* Bigger than the current min(80vw, 1100px) on phones */
+    --watermark-size: clamp(100vw, 120vw, 1400px);
+
+    /* Optional: nudge visibility up a hair on small screens
+       (uncomment if you want a touch more presence)
+    */
+    /* --watermark-opacity: 0.18; */
+  }
+
+  /* Optional: shift it a bit higher if it feels too low on phones */
+  /* body::before { bottom: 16%; } */
+}
