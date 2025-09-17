@@ -20,9 +20,9 @@
 /* ---------- Watermark tokens ---------- /
 / 👇 Uncomment ONE line to activate that logo /
 / --watermark-image: url("/assets/4geekmenot_glossy.png"); /
---watermark-image: url("/assets/4geekmenot_matte.png");
-/ --watermark-image: url("/assets/4geekmenot_embossed.png"); /
-/ --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); */
+/--watermark-image: url("/assets/4geekmenot_matte.png"); */
+/ --watermark-image: url("/assets/4geekmenot_embossed.png"); / 
+ --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); 
 --watermark-opacity: 0.10; /* adjust faintness /
 --watermark-size: min(80vw, 1100px); / controls logo size /
 --watermark-repeat: no-repeat; / no-repeat for centered, repeat for tiled */
