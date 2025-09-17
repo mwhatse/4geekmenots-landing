@@ -66,7 +66,7 @@ body::before{
   background-position: center;
   background-size: contain;
   background-repeat: var(--watermark-repeat);
-  opacity: var(--watermark-opacity);
+  opacity: .08 (--watermark-opacity);
   pointer-events: none;
   z-index: 0;
 }
