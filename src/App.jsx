@@ -3,10 +3,13 @@ import React from "react";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-/*
-  Minimal edits: rename brand to 4GeekMeNot (singular) across UI.
-  Links/structure/classes left intact.
-*/
+// Currency formatter (USD, no cents by default)
+const fmtUSD = (n) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(n);
 
 export default function App() {
   return (
@@ -28,7 +31,6 @@ export default function App() {
 
       {/* HERO */}
       <section className="hero section" aria-labelledby="hero-heading">
-        {/* Inline styles here lock the hero to your brand color and text color */}
         <div
           className="container card center"
           style={{
@@ -59,30 +61,55 @@ export default function App() {
         <div className="container">
           <h2 id="featured-heading">Featured Tees</h2>
 
-        <div className="product-grid" role="list">
-          {Array.isArray(products) && products.length ? (
-            products.map((p) => (
-              <article className="product" key={p.title} role="listitem">
-                <img src={p.img} alt={p.title} />
-                <h3>{p.title}</h3>
-                {p.desc && <p>{p.desc}</p>}
-                <a
-                  className="btn cta"
-                  href={p.url ?? STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Buy ${p.title} on Etsy`}
-                >
-                  Buy on Etsy
-                </a>
-              </article>
-            ))
-          ) : (
-            <p style={{ color: "var(--muted)" }}>
-              No products found — add listings to <code>src/products.js</code>.
-            </p>
-          )}
-        </div>
+          <div className="product-grid" role="list">
+            {Array.isArray(products) && products.length ? (
+              products.map((p) => {
+                const href = p.url ?? STORE_URL;
+                const hasPrice = typeof p.price === "number";
+                const onSale = typeof p.salePrice === "number";
+
+                return (
+                  <article className="product" key={p.id || p.title} role="listitem">
+                    <img src={p.img} alt={p.title} />
+                    <h3>{p.title}</h3>
+                    {p.desc && <p>{p.desc}</p>}
+
+                    {/* PRICE (optional; shows only if p.price is a number) */}
+                    {hasPrice && (
+                      <p className="price" aria-label={`Price for ${p.title}`}>
+                        {onSale ? (
+                          <>
+                            <span className="old">{fmtUSD(p.price)}</span>
+                            <span className="new">{fmtUSD(p.salePrice)}</span>
+                            <span className="from"> • from</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="from">from </span>
+                            <span className="new">{fmtUSD(p.price)}</span>
+                          </>
+                        )}
+                      </p>
+                    )}
+
+                    <a
+                      className={`btn ${p.url ? "primary" : "cta"}`}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Buy ${p.title} on Etsy`}
+                    >
+                      {p.url ? "View on Etsy" : "Shop the Store"}
+                    </a>
+                  </article>
+                );
+              })
+            ) : (
+              <p style={{ color: "var(--muted)" }}>
+                No products found — add listings to <code>src/products.js</code>.
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
@@ -104,7 +131,6 @@ export default function App() {
           <h2 id="contact-heading">Contact Us</h2>
           <p style={{ color: "var(--muted)" }}>
             For questions or custom designs, email us at <strong>4geekmenot@gmail.com</strong>.
-            {/* If your email is different, edit the address above. */}
           </p>
         </div>
       </section>

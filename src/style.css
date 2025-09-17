@@ -1,4 +1,4 @@
-/* src/style.css
+/* apps/app/src/style.css
    4GeekMeNot - global watermark (toggle variants by commenting/uncommenting)
 */
 
@@ -66,7 +66,7 @@ body::before{
   background-position: center;
   background-size: contain;
   background-repeat: var(--watermark-repeat);
-  opacity: .08 (--watermark-opacity);
+  opacity: var(--watermark-opacity);
   pointer-events: none;
   z-index: 0;
 }
@@ -228,3 +228,9 @@ img{ max-width:100%; display:block; }
   .nav .btn.primary,
   .nav .btn.cta { padding: 0.6rem 0.9rem; font-size: 0.9rem; }
 }
+
+/* ---- Price styles ---- */
+.price { font-weight: 900; color: var(--ink); margin: -.2rem 0 .2rem; }
+.price .old { opacity: .6; text-decoration: line-through; margin-right: .5rem; font-weight: 700; }
+.price .new { color: var(--brand); font-weight: 900; }
+.price .from { font-weight: 700; opacity: .6; margin-left: .35rem; font-size: .95em; }
