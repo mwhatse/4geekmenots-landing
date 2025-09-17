@@ -23,12 +23,12 @@
 
   /* ---------- Watermark tokens ---------- */
   /* Set ONE active image. Leave the examples below commented. */
-  --watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png");
+  /*--watermark-image: url("/assets/4geekmenot_watermark_shiny_06pct.png"); */
   /* Examples:
-     --watermark-image: url("/assets/4geekmenot_glossy.png");
-     --watermark-image: url("/assets/4geekmenot_matte.png");
+     /*--watermark-image: url("/assets/4geekmenot_glossy.png"); */
+     /*--watermark-image: url("/assets/4geekmenot_matte.png"); */
      --watermark-image: url("/assets/4geekmenot_embossed.png");
-  */
+  
 
   --watermark-opacity: 0.15;           /* adjust faintness */
   --watermark-size: min(80vw, 1100px); /* controls logo size */
