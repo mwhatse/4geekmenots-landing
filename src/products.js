@@ -18,7 +18,7 @@ export const products = [
   {
     id: "saturday-love-lyrical",
     title: "Our Saturday Love — Lyrical Tee",
-    img: "/img/Saturday-love.png", // case-sensitive on Vercel
+    img: "/img/saturday-love.png", // case-sensitive on Vercel (lowercase 's')
     desc: "Clean, lyric-forward design from the Lyrical Tees collection.",
     url: "https://www.etsy.com/listing/4373226626/our-saturday-love-t-shirt-lyrical-tees",
     price: 25.99, // set when ready (match Etsy)
@@ -55,40 +55,4 @@ export const products = [
     img: "/img/non-rev-life-barcode.png",
     desc: "A wink to standby warriors and gate-change gladiators.",
     url: "https://www.etsy.com/listing/4362839119",
-    price: 39.00,
-  },
-  {
-    id: "my-bed-is-calling",
-    title: "My Bed Is Calling",
-    img: "/img/my-bed-is-calling.png",
-    desc: "Funny sleep tee for night shifters, dreamers, and snooze-button pros.",
-    url: "https://www.etsy.com/listing/4363335234",
-    price: 23.99,
-  },
-  {
-    id: "404-sleep-not-found",
-    title: "404: Sleep Not Found",
-    img: "/img/404-sleep-not-found.png",
-    desc: "Geeky robot gag tee for devs and night owls.",
-    url: "https://www.etsy.com/listing/4344683685",
-    price: 25.99,
-  },
-  {
-    id: "heal-hoodie",
-    title: "HEAL Hoodie (Healthy Emotionally)",
-    img: "/img/heal-hoodie.png",
-    desc: "Cozy statement piece for growth-minded humans.",
-    url: "https://www.etsy.com/listing/4362682736",
-    price: 35.99,
-  },
-
-  // 🌈 New addition
-  {
-    id: "certified-rainbow-ally",
-    title: "Certified Rainbow Ally",
-    img: "/img/certified-rainbow-ally.png",
-    desc: "Heavy tee of love—proud, loud, comfy.",
-    url: "https://www.etsy.com/listing/4355134835",
-    price: 25.99,
-  },
-];
+    price: 3
