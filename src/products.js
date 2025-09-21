@@ -29,7 +29,7 @@ export const products = [
     title: "Equality > Division",
     img: "/img/equality-division.png",
     desc: "Bold, minimalist statement piece.",
-    url: "https://www.etsy.com/listing/4344693260",
+    url: "https://www.etsy.com/listing/4373319975",
     price: 23.99,
   },
   {
