@@ -14,6 +14,16 @@ export const products = [
     price: 25.99, // set when ready
   },
 
+  // 👉 New listing — Saturday Love (shows in the first row)
+  {
+    id: "saturday-love-lyrical",
+    title: "Our Saturday Love — Lyrical Tee",
+    img: "/img/Saturday-love.png", // case-sensitive on Vercel
+    desc: "Clean, lyric-forward design from the Lyrical Tees collection.",
+    url: "https://www.etsy.com/listing/4373226626/our-saturday-love-t-shirt-lyrical-tees",
+    price: 25.99, // set when ready (match Etsy)
+  },
+
   {
     id: "equality-division",
     title: "Equality > Division",
