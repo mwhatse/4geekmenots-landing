@@ -17,19 +17,29 @@ export const products = [
   {
     id: "saturday-love-lyrical",
     title: "Our Saturday Love — Lyrical Tee",
-    img: "/img/saturday-love.png", // case-sensitive on Vercel
+    img: "/img/saturday-love.png",
     desc: "Clean, lyric-forward design from the Lyrical Tees collection.",
     url: "https://www.etsy.com/listing/4373226626/our-saturday-love-t-shirt-lyrical-tees",
     price: 25.99
   },
 
-  // New listing — ATL Pride (added now)
+  // New listing — ATL Pride
   {
     id: "atl-pride",
     title: "ATL Pride Tee",
-    img: "/img/atl-pride.png", // you saved this in /public/img/
+    img: "/img/atl-pride.png",
     desc: "Bold Atlanta pride graphic. Soft unisex cotton, DTG print.",
     url: "https://www.etsy.com/listing/4373799355/unisex-heavy-cotton-tee?ref=shop_home_active_2&logging_key=895486704adcf0a49c723496d3a694032114217e%3A4373799355",
+    price: 25.99
+  },
+
+  // New listing — ATL Pride Boarding Pass
+  {
+    id: "atl-pride-boarding-pass",
+    title: "ATL Pride Boarding Pass Tee",
+    img: "/img/atl-boarding-pass.png",
+    desc: "Flight tag style with ATL pride. Crisp boarding-pass layout on a comfy unisex tee.",
+    url: "https://www.etsy.com/listing/4373905476/atl-pride-boarding-pass-t-shirt-flight?ref=shop_home_active_1&logging_key=f3fe71b490c46d0e84f6dd2739fba3e0b2d30518%3A4373905476",
     price: 25.99
   },
 
