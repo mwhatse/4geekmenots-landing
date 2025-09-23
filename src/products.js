@@ -8,12 +8,12 @@ export const products = [
     id: "mental-health-wealth-crowned",
     title: "Mental Health Is Wealth (Crowned)",
     img: "/img/mental-health-wealth.png",
-    desc: "Crowned edition—clean type, everyday weight.",
+    desc: "Crowned edition - clean type, everyday weight.",
     url: "https://www.etsy.com/listing/4370730462/mental-health-is-wealth-shirt-crowned?ref=shop_home_active_1&logging_key=77a835de15ba8ff72cf4892a6216bdddfa2bf0cc%3A4370730462",
     price: 25.99
   },
 
-  // New listing — Saturday Love (first row)
+  // Saturday Love (first row)
   {
     id: "saturday-love-lyrical",
     title: "Our Saturday Love — Lyrical Tee",
@@ -23,7 +23,7 @@ export const products = [
     price: 25.99
   },
 
-  // New listing — ATL Pride
+  // ATL Pride
   {
     id: "atl-pride",
     title: "ATL Pride Tee",
@@ -33,13 +33,23 @@ export const products = [
     price: 25.99
   },
 
-  // New listing — ATL Pride Boarding Pass
+  // ATL Pride Boarding Pass
   {
     id: "atl-pride-boarding-pass",
     title: "ATL Pride Boarding Pass Tee",
     img: "/img/atl-boarding-pass.png",
     desc: "Flight tag style with ATL pride. Crisp boarding-pass layout on a comfy unisex tee.",
     url: "https://www.etsy.com/listing/4373905476/atl-pride-boarding-pass-t-shirt-flight?ref=shop_home_active_1&logging_key=f3fe71b490c46d0e84f6dd2739fba3e0b2d30518%3A4373905476",
+    price: 25.99
+  },
+
+  // NEW: Travel Is My Love Language
+  {
+    id: "travel-love-language",
+    title: "Travel Is My Love Language",
+    img: "/img/travel-love-language.png",
+    desc: "Globe graphic with clean travel typography. Soft unisex cotton, DTG print.",
+    url: "https://www.etsy.com/listing/4374298621/travel-is-my-love-language-t-shirt-globe?ref=shop_home_feat_2&logging_key=c0c6f0c7bcbb808bf20ef9a1dadd32dc6cb0ee59%3A4374298621",
     price: 25.99
   },
 
@@ -103,7 +113,7 @@ export const products = [
     id: "certified-rainbow-ally",
     title: "Certified Rainbow Ally",
     img: "/img/certified-rainbow-ally.png",
-    desc: "Heavy tee of love — proud, loud, comfy.",
+    desc: "Heavy tee of love - proud, loud, comfy.",
     url: "https://www.etsy.com/listing/4355134835",
     price: 25.99
   }
