@@ -4,6 +4,16 @@
 export const STORE_URL = "https://4geekmenots.etsy.com";
 
 export const products = [
+  // Made Ya Look — Black Lives Matter (Hat)
+  {
+    id: "made-ya-look-blm-hat",
+    title: "Made Ya Look — Black Lives Matter (Hat)",
+    img: "/img/made-ya-look.png",
+    desc: "Minimal typography hat with a sharp message. Classic fit, adjustable strap, and everyday comfort.",
+    url: "https://www.etsy.com/listing/4385223572/made-ya-look-black-lives-matter?ref=shop_home_active_1",
+    price: 30.00
+  },
+
   {
     id: "mental-health-wealth-crowned",
     title: "Mental Health Is Wealth (Crowned)",
