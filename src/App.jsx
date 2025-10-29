@@ -1,165 +1,146 @@
-// src/App.jsx
+// apps/app/src/App.jsx
 import React from "react";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-function ProductCard({ p }) {
-  return (
-    <a
-      href={p.url || STORE_URL}
-      target="_blank"
-      rel="noreferrer"
-      className="group block rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition"
-      style={{ background: "rgba(255,255,255,0.02)" }}
-    >
-      <div
-        style={{
-          aspectRatio: "1 / 1",
-          overflow: "hidden",
-          display: "grid",
-          placeItems: "center",
-          background: "rgba(0,0,0,0.1)",
-        }}
-      >
-        {/* Use /public assets like /img/xyz.png */}
-        <img
-          src={p.img}
-          alt={p.title}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            transition: "transform .25s ease",
-          }}
-          className="group-hover:scale-[1.03]"
-        />
-      </div>
-      <div style={{ padding: "0.9rem 1rem" }}>
-        <div style={{ fontWeight: 700 }}>{p.title}</div>
-        {p.desc && (
-          <div style={{ fontSize: 13, opacity: 0.75, marginTop: 4 }}>
-            {p.desc}
-          </div>
-        )}
-        {p.price != null && (
-          <div style={{ marginTop: 8, fontWeight: 700 }}>
-            ${Number(p.price).toFixed(2)}
-          </div>
-        )}
-        <div
-          style={{
-            marginTop: 10,
-            fontSize: 13,
-            opacity: 0.85,
-            textDecoration: "underline",
-          }}
-        >
-          View on Etsy →
-        </div>
-      </div>
-    </a>
-  );
-}
+// Always show two decimals (USD)
+const fmtUSD = (n) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(n);
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header
-        style={{ padding: "1.25rem 1rem", borderBottom: "1px solid #eee" }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>
-            4GeekMeNot
-          </h1>
-          <nav style={{ fontSize: 14, opacity: 0.8 }}>
-            <a href="/" style={{ marginRight: 16 }}>
-              Home
+    <div id="app-root">
+      {/* NAV / HEADER */}
+      <header className="nav" role="banner">
+        <div className="container nav-row">
+          <a className="logo" href="/" aria-label="4GeekMeNot home">4GeekMeNot</a>
+
+          <nav className="nav-links" aria-label="Main navigation">
+            <a href="#shop">Shop</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a className="btn primary" href={STORE_URL} target="_blank" rel="noopener noreferrer">
+              Shop Etsy
             </a>
-            <a href="/custom">Custom Orders</a>
           </nav>
         </div>
       </header>
 
-      {/* Hero */}
-      <main style={{ flex: 1 }}>
-        <section style={{ padding: "2rem 1rem" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <h2 style={{ marginTop: 0, fontSize: 28, fontWeight: 800 }}>
-              Featured Tees
-            </h2>
-            <p style={{ marginTop: 8, lineHeight: 1.6, maxWidth: 900 }}>
-              Explore bold, travel-inspired designs and elevated streetwear
-              concepts. Printed with DTF precision for quality that lasts.
-            </p>
-          </div>
-        </section>
+      {/* HERO */}
+      <section className="hero section" aria-labelledby="hero-heading">
+        <div
+          className="container card center"
+          style={{
+            padding: "3rem 2rem",
+            background: "var(--brand)",
+            color: "var(--brand-ink)",
+            borderRadius: "20px",
+            boxShadow: "0 16px 60px var(--ring)",
+          }}
+        >
+          <h1 id="hero-heading" style={{ color: "var(--brand-ink)" }}>Wear Your Story</h1>
+          <p className="lead" style={{ color: "var(--brand-ink)" }}>Say more with fewer colors.</p>
 
-        {/* Product Grid */}
-        <section style={{ padding: "0 1rem 2.5rem" }}>
-          <div
-            style={{
-              maxWidth: 1200,
-              margin: "0 auto",
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns:
-                "repeat(auto-fill, minmax(min(100%, 240px), 1fr))",
-            }}
-          >
-            {products.map((p) => (
-              <ProductCard key={p.id} p={p} />
-            ))}
-          </div>
-        </section>
-
-        {/* CTA to entire Etsy store */}
-        <section style={{ padding: "0 1rem 3rem" }}>
-          <div
-            style={{
-              maxWidth: 1200,
-              margin: "0 auto",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <a
-              href={STORE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-2xl"
-              style={{
-                padding: "0.85rem 1.2rem",
-                border: "1px solid #222",
-                fontWeight: 600,
-              }}
-            >
-              Shop the full collection on Etsy
+          <div style={{ margin: "1.25rem 0" }}>
+            <a className="btn cta lg" href={STORE_URL} target="_blank" rel="noopener noreferrer">
+              Shop New Drops
             </a>
           </div>
-        </section>
-      </main>
 
-      {/* Footer */}
-      <footer
-        style={{
-          padding: "1.5rem 1rem",
-          borderTop: "1px solid #eee",
-          fontSize: 13,
-          opacity: 0.8,
-        }}
-      >
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          © {new Date().getFullYear()} 4GeekMeNot — Wear Your Story
+          <p className="trust" style={{ color: "var(--brand-ink)", opacity: 0.95 }}>
+            Wear your story — bold, comfy, built to last.
+          </p>
+        </div>
+      </section>
+
+      {/* PRODUCTS / SHOP */}
+      <section id="shop" className="section" aria-labelledby="featured-heading">
+        <div className="container">
+          <h2 id="featured-heading">Featured Tees</h2>
+
+          <div className="product-grid" role="list">
+            {Array.isArray(products) && products.length ? (
+              products.map((p) => {
+                const href = p.url ?? STORE_URL;
+                const hasPrice = typeof p.price === "number";
+                const onSale = typeof p.salePrice === "number";
+
+                return (
+                  <article className="product" key={p.id || p.title} role="listitem">
+                    <img src={p.img} alt={p.title} />
+                    <h3>{p.title}</h3>
+                    {p.desc && <p>{p.desc}</p>}
+
+                    {/* PRICE (shows only if p.price is a number) */}
+                    {hasPrice && (
+                      <p className="price" aria-label={`Price for ${p.title}`}>
+                        {onSale ? (
+                          <>
+                            <span className="old">{fmtUSD(p.price)}</span>
+                            <span className="new">{fmtUSD(p.salePrice)}</span>
+                            <span className="from"> • from</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="from">from </span>
+                            <span className="new">{fmtUSD(p.price)}</span>
+                          </>
+                        )}
+                      </p>
+                    )}
+
+                    <a
+                      className={`btn ${p.url ? "primary" : "cta"}`}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Buy ${p.title} on Etsy`}
+                    >
+                      {p.url ? "View on Etsy" : "Shop the Store"}
+                    </a>
+                  </article>
+                );
+              })
+            ) : (
+              <p style={{ color: "var(--muted)" }}>
+                No products found — add listings to <code>src/products.js</code>.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="section" aria-labelledby="about-heading">
+        <div className="container">
+          <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNot</h2>
+        <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
+            At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell your story.
+            Our geek-inspired, bold, and playful designs celebrate individuality, humor, and confidence. Every piece is
+            crafted to let you stand out, speak up, and proudly wear your story.
+          </p>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="section" aria-labelledby="contact-heading">
+        <div className="container">
+          <h2 id="contact-heading">Contact Us</h2>
+          <p style={{ color: "var(--muted)" }}>
+            For questions or custom designs, email us at <strong>4geekmenot@gmail.com</strong>.
+          </p>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer" role="contentinfo">
+        <div className="container">
+          <small>© {new Date().getFullYear()} 4GeekMeNot — Wear Your Story</small>
         </div>
       </footer>
     </div>
