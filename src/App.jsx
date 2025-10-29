@@ -1,7 +1,9 @@
 // apps/app/src/App.jsx
 import React from "react";
 import "./style.css";
+import { Routes, Route, Link } from "react-router-dom"; // <-- no BrowserRouter here
 import { products, STORE_URL } from "./products.js";
+import Custom from "./pages/Custom.jsx"; // make sure this file exists
 
 // Always show two decimals (USD)
 const fmtUSD = (n) =>
@@ -12,18 +14,27 @@ const fmtUSD = (n) =>
     maximumFractionDigits: 2,
   }).format(n);
 
-export default function App() {
+/* ----- Shared Layout: header/footer on every page ----- */
+function Layout({ children }) {
   return (
     <div id="app-root">
       {/* NAV / HEADER */}
       <header className="nav" role="banner">
         <div className="container nav-row">
-          <a className="logo" href="/" aria-label="4GeekMeNot home">4GeekMeNot</a>
+          <Link className="logo" to="/" aria-label="4GeekMeNot home">4GeekMeNot</Link>
 
           <nav className="nav-links" aria-label="Main navigation">
-            <a href="#shop">Shop</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            {/* Jump to sections on Home */}
+            <Link to="/#shop">Shop</Link>
+            <Link to="/#about">About</Link>
+            <Link to="/#contact">Contact</Link>
+
+            {/* Internal CTA to /custom */}
+            <Link className="btn primary" to="/custom">
+              Custom Design Request
+            </Link>
+
+            {/* External Etsy */}
             <a className="btn primary" href={STORE_URL} target="_blank" rel="noopener noreferrer">
               Shop Etsy
             </a>
@@ -31,6 +42,22 @@ export default function App() {
         </div>
       </header>
 
+      {children}
+
+      {/* FOOTER */}
+      <footer className="footer" role="contentinfo">
+        <div className="container">
+          <small>© {new Date().getFullYear()} 4GeekMeNot — Wear Your Story</small>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+/* ----- Home content ----- */
+function Home() {
+  return (
+    <>
       {/* HERO */}
       <section className="hero section" aria-labelledby="hero-heading">
         <div
@@ -76,7 +103,6 @@ export default function App() {
                     <h3>{p.title}</h3>
                     {p.desc && <p>{p.desc}</p>}
 
-                    {/* PRICE (shows only if p.price is a number) */}
                     {hasPrice && (
                       <p className="price" aria-label={`Price for ${p.title}`}>
                         {onSale ? (
@@ -119,7 +145,7 @@ export default function App() {
       <section id="about" className="section" aria-labelledby="about-heading">
         <div className="container">
           <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNot</h2>
-        <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
+          <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
             At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell your story.
             Our geek-inspired, bold, and playful designs celebrate individuality, humor, and confidence. Every piece is
             crafted to let you stand out, speak up, and proudly wear your story.
@@ -131,18 +157,23 @@ export default function App() {
       <section id="contact" className="section" aria-labelledby="contact-heading">
         <div className="container">
           <h2 id="contact-heading">Contact Us</h2>
-          <p style={{ color: "var(--muted)" }}>
+        <p style={{ color: "var(--muted)" }}>
             For questions or custom designs, email us at <strong>4geekmenot@gmail.com</strong>.
           </p>
         </div>
       </section>
+    </>
+  );
+}
 
-      {/* FOOTER */}
-      <footer className="footer" role="contentinfo">
-        <div className="container">
-          <small>© {new Date().getFullYear()} 4GeekMeNot — Wear Your Story</small>
-        </div>
-      </footer>
-    </div>
+/* ----- App: only Routes (no BrowserRouter) ----- */
+export default function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/custom" element={<Custom />} />
+      </Routes>
+    </Layout>
   );
 }
