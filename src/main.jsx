@@ -11,41 +11,75 @@ import App from "./App.jsx";
 import CustomOrderForm from "./components/CustomOrderForm";
 import "./style.css";
 
-function CustomLinkOverlay() {
+function FloatingCTA() {
   const { pathname } = useLocation();
   const isCustom = pathname === "/custom";
 
-  return (
-    <div className="overlay-cta-wrap">
-      {isCustom ? (
-        <Link to="/" className="overlay-cta yellow-btn" aria-label="Back to Home">
-          ← Back to Home
-        </Link>
-      ) : (
-        <Link
-          to="/custom"
-          className="overlay-cta yellow-btn"
-          aria-label="Custom Design Request"
-        >
-          Custom Design Request →
-        </Link>
-      )}
-    </div>
+  // Inline, brand-matched, immune to site CSS overrides
+  const baseStyle = {
+    position: "fixed",
+    right: "24px",
+    bottom: "24px",
+    zIndex: 99999,
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "10px",
+    padding: "16px 24px",            // bigger pill
+    borderRadius: "999px",
+    background: "var(--brand)",      // your yellow
+    color: "var(--brand-ink)",       // your black ink
+    textDecoration: "none",
+    fontWeight: 800,
+    fontSize: "1rem",
+    lineHeight: 1,
+    boxShadow: "0 12px 32px rgba(0,0,0,.35)",
+    border: "none",
+    transform: "translateZ(0)",      // avoids jitter
+  };
+
+  // tiny “hover” nudge via inline style attribute
+  const [hover, setHover] = React.useState(false);
+  const style = {
+    ...baseStyle,
+    transform: hover ? "translateY(-2px)" : baseStyle.transform,
+    boxShadow: hover ? "0 16px 36px rgba(0,0,0,.4)" : baseStyle.boxShadow,
+  };
+
+  return isCustom ? (
+    <Link
+      to="/"
+      aria-label="Back to Home"
+      style={style}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      ← Back to Home
+    </Link>
+  ) : (
+    <Link
+      to="/custom"
+      aria-label="Custom Design Request"
+      style={style}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      Custom Design Request →
+    </Link>
   );
 }
 
-function WithOverlay({ children }) {
+function WithFloatingCTA({ children }) {
   return (
     <>
       {children}
-      <CustomLinkOverlay />
+      <FloatingCTA />
     </>
   );
 }
 
 const router = createBrowserRouter([
-  { path: "/", element: <WithOverlay><App /></WithOverlay> },
-  { path: "/custom", element: <WithOverlay><CustomOrderForm /></WithOverlay> },
+  { path: "/", element: <WithFloatingCTA><App /></WithFloatingCTA> },
+  { path: "/custom", element: <WithFloatingCTA><CustomOrderForm /></WithFloatingCTA> },
 ]);
 
 createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
