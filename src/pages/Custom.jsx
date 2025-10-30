@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 
 export default function Custom() {
+  throw new Error("probe-77: This is the Custom.jsx you are editing");
+
   const [deadline] = useState(() => {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
