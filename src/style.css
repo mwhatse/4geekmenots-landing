@@ -24,7 +24,7 @@
   /* ---------- Watermark tokens ---------- */
   /* Home-page watermark image (place file at public/img/watermark-gold.png) */
   --watermark-image: url("/img/watermark-gold.png");
-  --watermark-opacity: 0.15;           /* adjust faintness */
+  --watermark-opacity: 0.08;           /* adjust faintness */
   --watermark-size: min(80vw, 1100px); /* controls logo size */
   --watermark-repeat: no-repeat;       /* no-repeat for centered, repeat for tiled */
 }
