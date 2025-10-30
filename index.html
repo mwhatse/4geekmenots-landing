@@ -4,50 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4Geekmenot — Wear Your Story</title>
-    <meta name="description" content="Culture meets comfort — designed for the ones who wear their story." />
-    <link rel="icon" href="/favicon.ico" />
+    <title>4GeekMeNot — Wear Your Story</title>
+    <meta
+      name="description"
+      content="4GeekMeNot: creative lifestyle-driven tees. Travel, music, and culture in every design."
+    />
+
+    <!-- Canonical -->
     <link rel="canonical" href="https://www.4geekmenot.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="4Geekmenot" />
-    <meta property="og:title" content="4Geekmenot — Wear Your Story" />
-    <meta property="og:description" content="Culture meets comfort — designed for the ones who wear their story." />
+    <meta property="og:site_name" content="4GeekMeNot" />
+    <meta property="og:title" content="4GeekMeNot — Wear Your Story" />
+    <meta
+      property="og:description"
+      content="Creative lifestyle-driven tees — travel, music, and culture in every design."
+    />
     <meta property="og:url" content="https://www.4geekmenot.com/" />
+    <meta property="og:image" content="/img/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+
+    <!-- Cloudinary upload widget -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" defer></script>
+
+    <!-- Vite will inject compiled scripts here -->
   </head>
 
   <body>
-    <!-- Static header (outside React) -->
-    <header class="header">
-      <div class="header-inner container">
-        <a href="/" class="brand" aria-label="4Geekmenot Home">
-          <span class="logo">4Geekmenot</span>
-        </a>
-
-        <!-- ✅ All buttons unified + ✅ mailto fixed -->
-        <nav class="nav" aria-label="Primary">
-          <a href="/" class="btn btn-outline-yellow">Home</a>
-          <a href="/products" class="btn btn-outline-yellow">Products</a>
-          <a href="/custom" class="btn btn-outline-yellow">Custom</a>
-          <a href="mailto:4Geekmenots@gmail.com" class="btn btn-outline-yellow">Contact</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- React mounts here -->
     <div id="root"></div>
-
-    <!-- Vite/modern bundlers load your app here -->
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Fix any mailto link on the page to the correct address
-    document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
-      a.setAttribute('href', 'mailto:4Geekmenots@gmail.com');
-    });
-  });
-</script>
-
   </body>
 </html>
