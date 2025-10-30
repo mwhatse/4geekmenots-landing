@@ -1,11 +1,10 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
-import Custom from "./pages/Custom.jsx"; // <- matches your folder: src/pages/Custom.jsx
 
-// USD formatter
+/* Currency helper stays */
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -14,76 +13,155 @@ const fmtUSD = (n) =>
     maximumFractionDigits: 2,
   }).format(n);
 
+/* ===== Shared UI ===== */
+function Header() {
+  return (
+    <header className="header">
+      <div className="header-inner container">
+        <Link to="/" className="brand" aria-label="4Geekmenot Home">
+          <span className="logo">4Geekmenot</span>
+        </Link>
+
+        <nav className="nav">
+          <Link to="/" className="btn btn-outline-yellow">Home</Link>
+          <Link to="/products" className="btn btn-outline-yellow">Products</Link>
+          <Link to="/custom" className="btn btn-outline-yellow">Custom</Link>
+          {/* Contact to correct email */}
+          <a href="mailto:4Geekmenots@gmail.com" className="btn btn-outline-yellow">Contact</a>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero container" style={{ position: "relative" }}>
+      <div id="watermark" aria-hidden="true"></div>
+
+      <h1>Wear your story</h1>
+      <p>Culture meets comfort — designed for the ones who wear their story.</p>
+
+      <div className="actions">
+        {/* Keeping both as outline to match your request */}
+        <a className="btn btn-outline-yellow" href={STORE_URL} target="_blank" rel="noreferrer">
+          Shop Products
+        </a>
+        <Link className="btn btn-outline-yellow" to="/custom">
+          Custom Design Request
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function Home() {
   return (
-    <main id="home">
-      {/* NAV */}
-      <header className="nav">
-        <div className="container nav-row">
-          <Link to="/" className="logo">4Geekmenot</Link>
-          <nav className="nav-links">
-            <Link to="/" className="link">Home</Link>
-            <a href={STORE_URL} target="_blank" rel="noreferrer" className="link">Products</a>
-            <Link to="/custom" className="btn outline">Custom</Link>
-            <a href="mailto:hello@4geekmenot.com" className="link">Contact</a>
-          </nav>
-        </div>
-      </header>
+    <>
+      <Hero />
+      {/* Floating Custom button on home */}
+      <Link to="/custom" className="btn btn-outline-yellow fab">
+        Custom Design Request
+      </Link>
+      <main className="container" style={{ marginTop: 18 }}>
+        {/* You can place featured rows or content here if you like */}
+      </main>
+    </>
+  );
+}
 
-      {/* HERO */}
-      <section className="hero section">
-        <div className="container">
-          <h1>Wear your story</h1>
-          <p className="lead">Travel-flavored, elevated tees with that 4Geekmenot edge.</p>
-          <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.9rem" }}>
-            <a href={STORE_URL} target="_blank" rel="noreferrer" className="btn cta">
-              Shop Products
-            </a>
-            <Link to="/custom" className="btn outline">
-              Custom Design Request
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS */}
-      <section className="section">
-        <div className="container">
-          <div className="product-grid">
-            {products.map((p) => (
-              <a key={p.id} href={p.url} target="_blank" rel="noreferrer" className="product">
-                <img src={p.img} alt={p.title} loading="lazy" />
-                <h3>{p.title}</h3>
-                {p.desc && <p>{p.desc}</p>}
-                <div className="price">
-                  <span className="new">{fmtUSD(p.price)}</span>
-                </div>
-                <span className="btn primary" style={{ alignSelf: "start" }}>
+function Products() {
+  return (
+    <main className="container" style={{ marginTop: 24 }}>
+      <div className="grid grid-3">
+        {products.map((p) => (
+          <article className="card" key={p.id}>
+            <img src={p.img} alt={p.title} loading="lazy" />
+            <div className="body">
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+              <div className="row">
+                <strong>{fmtUSD(p.price)}</strong>
+                <a href={p.url} target="_blank" rel="noreferrer" className="btn btn-outline-yellow">
                   View
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="footer">
-        <div className="container center">
-          <small>© {new Date().getFullYear()} 4Geekmenot — Wear your story.</small>
-        </div>
-      </footer>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div style={{ marginTop: 20, textAlign: "center" }}>
+        <a className="btn btn-outline-yellow" href={STORE_URL} target="_blank" rel="noreferrer">
+          Visit Full Etsy Store
+        </a>
+      </div>
     </main>
   );
 }
 
+function Custom() {
+  return (
+    <>
+      {/* Loop-back button with same attributes */}
+      <Link to="/" className="btn btn-outline-yellow back-fab">
+        ← Back to Home
+      </Link>
+
+      <main className="container" style={{ marginTop: 28 }}>
+        <section className="card" style={{ padding: 22 }}>
+          <h2 style={{ marginTop: 0 }}>Custom Design Request</h2>
+          <p style={{ color: "var(--muted)" }}>
+            Tell us what you want to wear and we’ll help you bring it to life.
+          </p>
+
+          {/* TODO: Swap in your actual form when ready */}
+          <div className="grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+            <label>
+              <div>Name</div>
+              <input style={inputStyle} placeholder="Your name" />
+            </label>
+            <label>
+              <div>Email</div>
+              <input style={inputStyle} placeholder="you@example.com" />
+            </label>
+            <label style={{ gridColumn: "1 / -1" }}>
+              <div>Project details</div>
+              <textarea style={{ ...inputStyle, minHeight: 120 }} placeholder="Sizes, colors, deadlines…" />
+            </label>
+          </div>
+
+          <div style={{ marginTop: 16 }}>
+            <button className="btn btn-outline-yellow" type="button">Send Request</button>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+const inputStyle = {
+  width: "100%",
+  marginTop: 6,
+  padding: "12px 14px",
+  borderRadius: 12,
+  border: "1px solid #18202b",
+  background: "#0b1117",
+  color: "var(--text)",
+  outline: "none",
+};
+
+/* ===== App Root ===== */
 export default function App() {
   return (
-    <BrowserRouter>
+    <div>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/custom" element={<Custom />} />
       </Routes>
-    </BrowserRouter>
+
+      <footer className="footer">© {new Date().getFullYear()} 4Geekmenot — Wear your story.</footer>
+    </div>
   );
 }
