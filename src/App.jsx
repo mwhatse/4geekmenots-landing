@@ -17,7 +17,10 @@ const fmtUSD = (n) =>
 function Home() {
   return (
     <>
-      {/* HERO */}
+      {/* subtle background logo */}
+      <div className="bg-logo" aria-hidden="true" />
+
+      {/* HERO (smaller) */}
       <section className="hero">
         <div className="hero-inner">
           <h1 className="hero-title">Wear Your Story.</h1>
@@ -28,7 +31,8 @@ function Home() {
             <a href={STORE_URL} target="_blank" rel="noreferrer" className="btn buy">
               Shop on Etsy
             </a>
-            <Link to="/custom" className="btn outline">Custom Design</Link>
+            {/* make Custom yellow like the Shop button */}
+            <Link to="/custom" className="btn buy">Custom Design</Link>
           </div>
         </div>
       </section>
@@ -78,6 +82,7 @@ function Home() {
           <span>© {new Date().getFullYear()} 4GeekMeNot</span>
           <a href={STORE_URL} target="_blank" rel="noreferrer">Etsy</a>
           <Link to="/custom">Custom</Link>
+          <Link to="/contact">Contact</Link>
         </div>
       </footer>
     </>
@@ -90,10 +95,9 @@ function Custom() {
       <h1 className="tag hot">Custom Design Request</h1>
       <p>Tell us the destination, vibe, or idea. We’ll design it and send a proof.</p>
 
-      {/* Placeholder – you can ship with this or I’ll drop a real form next */}
       <div className="custom-placeholder">
         <p>
-          Coming up: branded intake form (name, email, shirt color/size, design brief, upload, timeline).
+          Branded intake form goes here (name, email, shirt color/size, design brief, upload, timeline).
         </p>
         <p>
           Prefer email? <a href="mailto:hello@4geekmenot.com">hello@4geekmenot.com</a>
@@ -103,19 +107,35 @@ function Custom() {
   );
 }
 
+function Contact() {
+  return (
+    <main className="page">
+      <h1 className="tag">Contact</h1>
+      <p>Email: <a href="mailto:hello@4geekmenot.com">hello@4geekmenot.com</a></p>
+      <p>Instagram: <a href="https://4geekmenots.etsy.com" target="_blank" rel="noreferrer">Etsy shop</a></p>
+    </main>
+  );
+}
+
 export default function App() {
   return (
     <>
+      {/* HEADER: brand left, nav right */}
       <header className="topbar">
-        <nav className="nav">
-          <Link to="/">Home</Link>
-          <Link to="/custom">Custom</Link>
-        </nav>
+        <div className="brandbar">
+          <Link to="/" className="brand">4GeekMeNot</Link>
+          <nav className="nav right">
+            <Link to="/">Home</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/custom">Custom</Link>
+          </nav>
+        </div>
       </header>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<Custom />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       {/* Global floating CTA (bottom-right) */}
