@@ -1,5 +1,5 @@
 /* =============================
-   4GeekMeNot — Full Branded Stylesheet
+   4GeekMeNot — Full Branded Stylesheet (bottom-right CTA)
    ============================= */
 
 :root {
@@ -22,7 +22,7 @@ html, body, #root {
 
 /* ===== Layout ===== */
 .page {
-  padding: 24px 24px 120px;
+  padding: 24px 24px 120px; /* extra bottom space so CTA never covers content */
   max-width: 960px;
   margin: 0 auto;
 }
@@ -76,77 +76,59 @@ html, body, #root {
   color: #000;
 }
 
-/* ===== Floating CTA Button ===== */
-.floating-cta {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 40;
+/* ===== Floating CTA Button (forced bottom-right) ===== */
+.floating-cta{
+  position: fixed !important;   /* lock to viewport */
+  right: calc(20px + env(safe-area-inset-right));
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  top: auto !important;         /* in case anything set top */
+  left: auto !important;
+  z-index: 999;
   background: var(--brand-yellow);
   color: var(--ink);
   font-weight: 800;
   letter-spacing: 0.2px;
   padding: 16px 22px;
   border-radius: 9999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 -2px 0 rgba(0,0,0,.15);
   text-decoration: none;
-  border: 2px solid rgba(0, 0, 0, 0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease,
-    filter 0.12s ease;
+  border: 2px solid rgba(0,0,0,.6);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
   font-size: 18px;
 }
 
-.floating-cta:hover {
+.floating-cta:hover{
   transform: translateY(-1px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 14px 34px rgba(0,0,0,.4), inset 0 -2px 0 rgba(0,0,0,.25);
 }
 
-.floating-cta:active {
+.floating-cta:active{
   transform: translateY(0);
-  filter: brightness(0.96);
+  filter: brightness(.96);
 }
 
-/* ===== Text & Paragraphs ===== */
-p {
+/* ===== Text ===== */
+p{
   font-size: 18px;
-  color: rgba(229, 231, 235, 0.9);
+  color: rgba(229,231,235,.9);
   margin-top: 0;
 }
 
-/* ===== Mobile Adjustments ===== */
-@media (max-width: 520px) {
-  .tag {
-    font-size: 40px;
-  }
-
-  .floating-cta {
-    right: 14px;
-    bottom: 14px;
+/* ===== Mobile ===== */
+@media (max-width: 520px){
+  .tag{ font-size: 40px; }
+  .floating-cta{
     padding: 14px 18px;
     font-size: 16px;
   }
-
-  .page {
-    padding: 16px 16px 100px;
-  }
+  .page{ padding: 16px 16px 100px; }
 }
 
 /* ===== Optional Animation ===== */
-@media (prefers-reduced-motion: no-preference) {
-  .floating-cta {
-    animation: fadeIn 0.3s ease-out;
-  }
+@media (prefers-reduced-motion: no-preference){
+  .floating-cta{ animation: fadeIn .3s ease-out; }
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeIn{
+  from{ opacity:0; transform: translateY(5px); }
+  to{   opacity:1; transform: translateY(0); }
 }
