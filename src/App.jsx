@@ -1,11 +1,11 @@
 // apps/app/src/App.jsx
 import React from "react";
 import "./style.css";
-import { Routes, Route, Link } from "react-router-dom"; // <-- no BrowserRouter here
+import { Routes, Route, Link } from "react-router-dom";
 import { products, STORE_URL } from "./products.js";
-import Custom from "./pages/Custom.jsx"; // make sure this file exists
+import Custom from "./pages/Custom.jsx"; // /custom page
 
-// Always show two decimals (USD)
+// ---------- currency helper ----------
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -14,34 +14,44 @@ const fmtUSD = (n) =>
     maximumFractionDigits: 2,
   }).format(n);
 
-/* ----- Shared Layout: header/footer on every page ----- */
+// ---------- shared layout (header/footer around every page) ----------
 function Layout({ children }) {
   return (
     <div id="app-root">
       {/* NAV / HEADER */}
       <header className="nav" role="banner">
         <div className="container nav-row">
-          <Link className="logo" to="/" aria-label="4GeekMeNot home">4GeekMeNot</Link>
+          <Link className="logo" to="/" aria-label="4GeekMeNot home">
+            4GeekMeNot
+          </Link>
 
           <nav className="nav-links" aria-label="Main navigation">
-            {/* Jump to sections on Home */}
+            {/* in-page anchors for the home page */}
             <Link to="/#shop">Shop</Link>
             <Link to="/#about">About</Link>
             <Link to="/#contact">Contact</Link>
 
-            {/* Internal CTA to /custom */}
-            <Link className="btn primary" to="/custom">
+            {/* internal custom page (brand-yellow button) */}
+            <Link className="btn primary" to="/custom" aria-label="Custom Design Request">
               Custom Design Request
             </Link>
 
-            {/* External Etsy */}
-            <a className="btn primary" href={STORE_URL} target="_blank" rel="noopener noreferrer">
+            {/* external Etsy shop */}
+            <a
+              className="btn cta"
+              href={STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Etsy store"
+              style={{ marginLeft: ".4rem" }}
+            >
               Shop Etsy
             </a>
           </nav>
         </div>
       </header>
 
+      {/* PAGE CONTENT */}
       {children}
 
       {/* FOOTER */}
@@ -54,7 +64,7 @@ function Layout({ children }) {
   );
 }
 
-/* ----- Home content ----- */
+// ---------- Home page ----------
 function Home() {
   return (
     <>
@@ -70,8 +80,12 @@ function Home() {
             boxShadow: "0 16px 60px var(--ring)",
           }}
         >
-          <h1 id="hero-heading" style={{ color: "var(--brand-ink)" }}>Wear Your Story</h1>
-          <p className="lead" style={{ color: "var(--brand-ink)" }}>Say more with fewer colors.</p>
+          <h1 id="hero-heading" style={{ color: "var(--brand-ink)" }}>
+            Wear Your Story
+          </h1>
+          <p className="lead" style={{ color: "var(--brand-ink)" }}>
+            Say more with fewer colors.
+          </p>
 
           <div style={{ margin: "1.25rem 0" }}>
             <a className="btn cta lg" href={STORE_URL} target="_blank" rel="noopener noreferrer">
@@ -103,6 +117,7 @@ function Home() {
                     <h3>{p.title}</h3>
                     {p.desc && <p>{p.desc}</p>}
 
+                    {/* PRICE */}
                     {hasPrice && (
                       <p className="price" aria-label={`Price for ${p.title}`}>
                         {onSale ? (
@@ -144,11 +159,13 @@ function Home() {
       {/* ABOUT */}
       <section id="about" className="section" aria-labelledby="about-heading">
         <div className="container">
-          <h2 id="about-heading" style={{ color: "var(--brand)" }}>About 4GeekMeNot</h2>
+          <h2 id="about-heading" style={{ color: "var(--brand)" }}>
+            About 4GeekMeNot
+          </h2>
           <p style={{ color: "var(--ink)", fontSize: "1.05rem", lineHeight: 1.6 }}>
-            At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell your story.
-            Our geek-inspired, bold, and playful designs celebrate individuality, humor, and confidence. Every piece is
-            crafted to let you stand out, speak up, and proudly wear your story.
+            At 4GeekMeNot, we believe clothing should be more than just something you wear—it should tell
+            your story. Our geek-inspired, bold, and playful designs celebrate individuality, humor, and
+            confidence. Every piece is crafted to let you stand out, speak up, and proudly wear your story.
           </p>
         </div>
       </section>
@@ -157,7 +174,7 @@ function Home() {
       <section id="contact" className="section" aria-labelledby="contact-heading">
         <div className="container">
           <h2 id="contact-heading">Contact Us</h2>
-        <p style={{ color: "var(--muted)" }}>
+          <p style={{ color: "var(--muted)" }}>
             For questions or custom designs, email us at <strong>4geekmenot@gmail.com</strong>.
           </p>
         </div>
@@ -166,7 +183,7 @@ function Home() {
   );
 }
 
-/* ----- App: only Routes (no BrowserRouter) ----- */
+// ---------- App routes (BrowserRouter is created in main.jsx/index.jsx) ----------
 export default function App() {
   return (
     <Layout>
