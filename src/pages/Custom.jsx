@@ -1,13 +1,8 @@
-// apps/app/src/pages/Custom.jsx
-import React, { useState } from "react";
-
-export default function Custom() {
-  throw new Error("probe-77: This is the Custom.jsx you are editing");
-
-  const [deadline] = useState(() => {
+function Custom() {
+  const today = (() => {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  });
+  })();
 
   return (
     <>
@@ -24,7 +19,7 @@ export default function Custom() {
         <div className="container grid-2">
           {/* LEFT: FORM CARD */}
           <div className="card form-card">
-            <form onSubmit={(e) => { e.preventDefault(); alert("Submitted! (Wire to Google Forms or backend)"); }}>
+            <form onSubmit={(e) => { e.preventDefault(); alert("Submitted! (Wire this to Google Forms or your backend)"); }}>
               {/* CONTACT */}
               <div className="brand-outline" style={{ padding: 16, marginBottom: 16 }}>
                 <h3 style={{ margin: 0, marginBottom: 8 }}>Contact</h3>
@@ -43,7 +38,7 @@ export default function Custom() {
                 <legend>Placement <span className="kicker">(select all that apply)</span></legend>
                 <div className="checks">
                   {["Front","Back","Left Sleeve","Right Sleeve","Hem Wrap","Neck Tag","All-Over (AOP)"].map(lbl => (
-                    <label key={lbl} className="check">
+                    <label key={lbl} className="check" style={{ display:"inline-flex", alignItems:"center", gap:8, marginRight:16 }}>
                       <input type="checkbox" name="placement" value={lbl} />
                       <span>{lbl}</span>
                     </label>
@@ -59,7 +54,7 @@ export default function Custom() {
                 <input className="input" name="baseColors" placeholder="Shirt/base colors  e.g., black, sand, heather" />
                 <input className="input" name="sizes" placeholder="Sizes  e.g., S:10, M:12, L:8, XL:4" />
                 <input className="input" type="number" name="qty" placeholder="Quantity" min="1" />
-                <input className="input" type="date" name="deadline" defaultValue={deadline} />
+                <input className="input" type="date" name="deadline" defaultValue={today} />
               </div>
 
               <div className="form-row" style={{ gridTemplateColumns: "1fr minmax(200px,260px)" }}>
