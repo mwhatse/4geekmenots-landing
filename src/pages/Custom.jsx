@@ -1,200 +1,145 @@
 // src/pages/Custom.jsx
-import React, { useState } from "react";
-import "../style.css"; // <- fixed path (one level up from /pages)
+import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import "../style.css";
 
-const EMAIL_TO = "hello@4geekmenot.com";
+/** ===== Config ===== */
+const EMAIL_TO = "4Geekmenots@gmail.com"; // ✅ correct address
 
 export default function Custom() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    garment: "T-Shirt",
-    colors: "Black / White",
-    sizes: "S-3XL",
-    qty: "1–25",
-    due: "",
-    notes: "",
-    // honeypot for bots:
-    company: "",
-  });
+  // Simple controlled form
+  const [name, setName] = useState("");
+  const [fromEmail, setFromEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [qty, setQty] = useState("");
+  const [due, setDue] = useState("");
+  const [details, setDetails] = useState("");
 
-  const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const submit = (e) => {
-    e.preventDefault();
-    if (form.company?.trim()) return; // bot filled hidden field → ignore
-
-    const subject = encodeURIComponent("Custom Design Request — 4Geekmenot");
+  // Build mailto: link from current inputs
+  const mailtoHref = useMemo(() => {
+    const subject = `Custom Design Request — 4Geekmenot`;
     const lines = [
-      "CUSTOM REQUEST",
-      "-------------------------",
-      `Name:   ${form.name}`,
-      `Email:  ${form.email}`,
-      `Phone:  ${form.phone || "(none)"}`,
-      `Garment: ${form.garment}`,
-      `Colors:  ${form.colors}`,
-      `Sizes:   ${form.sizes}`,
-      `Qty:     ${form.qty}`,
-      `Need By: ${form.due || "(unspecified)"}`,
+      `Name: ${name || ""}`,
+      `Email: ${fromEmail || ""}`,
+      `Phone: ${phone || ""}`,
+      `Quantity: ${qty || ""}`,
+      `Due date: ${due || ""}`,
       "",
-      "NOTES / CONCEPT:",
-      form.notes || "(none)",
-      "",
-      "Source: 4Geekmenot.com/custom",
+      `Project details:`,
+      `${details || ""}`,
     ].join("\n");
 
-    window.location.href =
-      `mailto:${EMAIL_TO}?subject=${subject}&body=${encodeURIComponent(lines)}`;
-  };
+    const params = new URLSearchParams({
+      subject,
+      body: lines,
+    });
+
+    return `mailto:${EMAIL_TO}?${params.toString()}`;
+  }, [name, fromEmail, phone, qty, due, details]);
 
   return (
-    <main id="custom">
-      <section className="section">
-        <div className="container">
-          <header className="page-hero">
-            <h1 className="page-title">Custom Design Request</h1>
-            <p className="page-sub">
-              Tell me the vision—garment, colors, placements, deadline. I’ll draft and quote.
-            </p>
-          </header>
+    <>
+      {/* Loop-back button with unified style */}
+      <Link to="/" className="btn btn-outline-yellow back-fab">
+        ← Back to Home
+      </Link>
 
-          <div className="form-wrap">
-            <form className="custom-form" onSubmit={submit} noValidate>
-              {/* Honeypot (hidden) */}
-              <label className="hidden">
-                Company
-                <input
-                  name="company"
-                  autoComplete="off"
-                  value={form.company}
-                  onChange={update}
-                  tabIndex={-1}
-                />
-              </label>
+      <main className="container" style={{ marginTop: 28 }}>
+        <section className="card" style={{ padding: 22 }}>
+          <h1 className="page-title" style={{ marginTop: 0 }}>Custom Design Request</h1>
+          <p style={{ color: "var(--muted)", marginTop: 6 }}>
+            Tell us what you want to wear and we’ll help you bring it to life. Fill this out and
+            hit <em>Send via Email</em>—we’ll reply from <strong>{EMAIL_TO}</strong>.
+          </p>
 
-              <div className="field two">
-                <label>
-                  Full name
-                  <input
-                    required
-                    name="name"
-                    value={form.name}
-                    onChange={update}
-                    placeholder="e.g., Robert Jones"
-                  />
-                </label>
-                <label>
-                  Email
-                  <input
-                    required
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={update}
-                    placeholder="your@email.com"
-                  />
-                </label>
-              </div>
+          <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <label>
+              <div>Name</div>
+              <input
+                style={inputStyle}
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
 
-              <div className="field two">
-                <label>
-                  Phone
-                  <input
-                    name="phone"
-                    value={form.phone}
-                    onChange={update}
-                    placeholder="optional"
-                  />
-                </label>
-                <label>
-                  Need by (date)
-                  <input
-                    type="date"
-                    name="due"
-                    value={form.due}
-                    onChange={update}
-                  />
-                </label>
-              </div>
+            <label>
+              <div>Email</div>
+              <input
+                style={inputStyle}
+                placeholder="you@example.com"
+                type="email"
+                value={fromEmail}
+                onChange={(e) => setFromEmail(e.target.value)}
+              />
+            </label>
 
-              <div className="field three">
-                <label>
-                  Garment
-                  <select name="garment" value={form.garment} onChange={update}>
-                    <option>T-Shirt</option>
-                    <option>Long Sleeve</option>
-                    <option>Hoodie</option>
-                    <option>Sweatshirt</option>
-                    <option>Hat</option>
-                    <option>Tote / Bag</option>
-                  </select>
-                </label>
+            <label>
+              <div>Phone (optional)</div>
+              <input
+                style={inputStyle}
+                placeholder="(###) ###-####"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </label>
 
-                <label>
-                  Colors
-                  <input
-                    name="colors"
-                    value={form.colors}
-                    onChange={update}
-                    placeholder="Team colors or palette"
-                  />
-                </label>
+            <label>
+              <div>Quantity</div>
+              <input
+                style={inputStyle}
+                placeholder="e.g., 12"
+                inputMode="numeric"
+                value={qty}
+                onChange={(e) => setQty(e.target.value)}
+              />
+            </label>
 
-                <label>
-                  Sizes
-                  <input
-                    name="sizes"
-                    value={form.sizes}
-                    onChange={update}
-                    placeholder="e.g., S-3XL or kids/adult mix"
-                  />
-                </label>
-              </div>
+            <label>
+              <div>Target due date</div>
+              <input
+                style={inputStyle}
+                type="date"
+                value={due}
+                onChange={(e) => setDue(e.target.value)}
+              />
+            </label>
 
-              <div className="field">
-                <label>
-                  Quantity
-                  <select name="qty" value={form.qty} onChange={update}>
-                    <option>1–25</option>
-                    <option>26–50</option>
-                    <option>51–100</option>
-                    <option>100+</option>
-                  </select>
-                </label>
-              </div>
-
-              <div className="field">
-                <label>
-                  Notes / concept (links welcome)
-                  <textarea
-                    rows="6"
-                    name="notes"
-                    value={form.notes}
-                    onChange={update}
-                    placeholder="Describe theme, colors, print method (DTF / UV DTF / embroidery), placements (front center 11” wide, left chest 3.5”, back 13.5x14”, sleeve 3x11), deadlines, inspiration links, etc."
-                  />
-                </label>
-              </div>
-
-              <div className="actions">
-                <button className="btn primary" type="submit">
-                  Send Request
-                </button>
-                <a className="btn outline" href={`mailto:${EMAIL_TO}`}>
-                  Email Instead
-                </a>
-              </div>
-            </form>
+            <label style={{ gridColumn: "1 / -1" }}>
+              <div>Project details</div>
+              <textarea
+                style={{ ...inputStyle, minHeight: 140 }}
+                placeholder="Sizes, colors, placement (front/back/sleeve), deadlines, inspiration links…"
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+              />
+            </label>
           </div>
-        </div>
-      </section>
 
-      <footer className="footer">
-        <div className="container center">
-          <small>© {new Date().getFullYear()} 4Geekmenot — Wear your story.</small>
-        </div>
-      </footer>
-    </main>
+          <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {/* Primary action uses mailto built from the form */}
+            <a className="btn btn-outline-yellow" href={mailtoHref}>
+              Send via Email
+            </a>
+
+            {/* Secondary: plain contact link to the same address */}
+            <a className="btn btn-outline-yellow" href={`mailto:${EMAIL_TO}`}>
+              Contact {EMAIL_TO}
+            </a>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  marginTop: 6,
+  padding: "12px 14px",
+  borderRadius: 12,
+  border: "1px solid #18202b",
+  background: "#0b1117",
+  color: "var(--text)",
+  outline: "none",
+};
