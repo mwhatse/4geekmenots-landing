@@ -190,7 +190,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<Custom />} />
+        {/* add this line below */}
+        <Route
+          path="/zzz"
+          element={<div style={{ padding: 24, color: 'var(--brand)' }}>
+            ZZZ LIVE {new Date().toLocaleTimeString()}
+          </div>}
+        />
       </Routes>
     </Layout>
   );
 }
+
