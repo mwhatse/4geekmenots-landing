@@ -4,7 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-/* Currency helper stays */
+/* Currency helper (unchanged) */
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -22,11 +22,12 @@ function Header() {
           <span className="logo">4Geekmenot</span>
         </Link>
 
+        {/* All nav links use the unified outline style */}
         <nav className="nav">
           <Link to="/" className="btn btn-outline-yellow">Home</Link>
           <Link to="/products" className="btn btn-outline-yellow">Products</Link>
           <Link to="/custom" className="btn btn-outline-yellow">Custom</Link>
-          {/* Contact to correct email */}
+          {/* Contact fixed to correct email */}
           <a href="mailto:4Geekmenots@gmail.com" className="btn btn-outline-yellow">Contact</a>
         </nav>
       </div>
@@ -36,14 +37,14 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero container" style={{ position: "relative" }}>
+    <section className="hero container">
+      {/* Subtle watermark underneath hero content */}
       <div id="watermark" aria-hidden="true"></div>
 
       <h1>Wear your story</h1>
       <p>Culture meets comfort — designed for the ones who wear their story.</p>
 
       <div className="actions">
-        {/* Keeping both as outline to match your request */}
         <a className="btn btn-outline-yellow" href={STORE_URL} target="_blank" rel="noreferrer">
           Shop Products
         </a>
@@ -59,13 +60,13 @@ function Home() {
   return (
     <>
       <Hero />
-      {/* Floating Custom button on home */}
+      {/* Floating “Custom Design Request” button on home */}
       <Link to="/custom" className="btn btn-outline-yellow fab">
         Custom Design Request
       </Link>
-      <main className="container" style={{ marginTop: 18 }}>
-        {/* You can place featured rows or content here if you like */}
-      </main>
+
+      {/* If you want featured content, drop it here */}
+      <main className="container" style={{ marginTop: 18 }} />
     </>
   );
 }
@@ -90,6 +91,7 @@ function Products() {
           </article>
         ))}
       </div>
+
       <div style={{ marginTop: 20, textAlign: "center" }}>
         <a className="btn btn-outline-yellow" href={STORE_URL} target="_blank" rel="noreferrer">
           Visit Full Etsy Store
@@ -102,7 +104,7 @@ function Products() {
 function Custom() {
   return (
     <>
-      {/* Loop-back button with same attributes */}
+      {/* Loop-back button with same attributes as home CTA */}
       <Link to="/" className="btn btn-outline-yellow back-fab">
         ← Back to Home
       </Link>
@@ -114,8 +116,8 @@ function Custom() {
             Tell us what you want to wear and we’ll help you bring it to life.
           </p>
 
-          {/* TODO: Swap in your actual form when ready */}
-          <div className="grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+          {/* Simple placeholder form — wire up later */}
+          <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <label>
               <div>Name</div>
               <input style={inputStyle} placeholder="Your name" />
@@ -160,7 +162,6 @@ export default function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/custom" element={<Custom />} />
       </Routes>
-
       <footer className="footer">© {new Date().getFullYear()} 4Geekmenot — Wear your story.</footer>
     </div>
   );
