@@ -1,11 +1,11 @@
-// apps/app/src/App.jsx
+// src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
-import Custom from "./Custom.jsx";
+import Custom from "./pages/Custom.jsx"; // <- matches your folder: src/pages/Custom.jsx
 
-// USD formatter (kept from your earlier build)
+// USD formatter
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -34,9 +34,7 @@ function Home() {
       <section className="hero section">
         <div className="container">
           <h1>Wear your story</h1>
-          <p className="lead">
-            Travel-flavored, elevated tees with that 4Geekmenot edge.
-          </p>
+          <p className="lead">Travel-flavored, elevated tees with that 4Geekmenot edge.</p>
           <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.9rem" }}>
             <a href={STORE_URL} target="_blank" rel="noreferrer" className="btn cta">
               Shop Products
