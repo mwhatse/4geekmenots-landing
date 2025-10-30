@@ -1,7 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import "./style.css"; // make sure this line exists
+import { Routes, Route, Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -34,7 +33,7 @@ function Zzz() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <>
       <header className="topbar">
         <nav className="nav">
           <Link to="/">Home</Link>
@@ -42,7 +41,7 @@ export default function App() {
           <Link to="/zzz">ZZZ</Link>
         </nav>
 
-        {/* Floating CTA (also duplicated at the bottom for mobile accessibility) */}
+        {/* Floating CTA */}
         <Link to="/custom" className="floating-cta" aria-label="Custom Design Request">
           Custom Design Request
         </Link>
@@ -53,6 +52,6 @@ export default function App() {
         <Route path="/custom" element={<Custom />} />
         <Route path="/zzz" element={<Zzz />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
