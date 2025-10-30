@@ -1,10 +1,9 @@
-// src/App.jsx
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-/* Currency helper (unchanged) */
+/* Always show two decimals (USD) */
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -13,7 +12,7 @@ const fmtUSD = (n) =>
     maximumFractionDigits: 2,
   }).format(n);
 
-/* ===== Shared UI ===== */
+/* ===== Header (nav + contact email fixed) ===== */
 function Header() {
   return (
     <header className="header">
@@ -22,12 +21,10 @@ function Header() {
           <span className="logo">4Geekmenot</span>
         </Link>
 
-        {/* All nav links use the unified outline style */}
-        <nav className="nav">
+        <nav className="nav" aria-label="Primary">
           <Link to="/" className="btn btn-outline-yellow">Home</Link>
           <Link to="/products" className="btn btn-outline-yellow">Products</Link>
           <Link to="/custom" className="btn btn-outline-yellow">Custom</Link>
-          {/* Contact fixed to correct email */}
           <a href="mailto:4Geekmenots@gmail.com" className="btn btn-outline-yellow">Contact</a>
         </nav>
       </div>
@@ -35,10 +32,10 @@ function Header() {
   );
 }
 
+/* ===== Hero ===== */
 function Hero() {
   return (
     <section className="hero container">
-      {/* Subtle watermark underneath hero content */}
       <div id="watermark" aria-hidden="true"></div>
 
       <h1>Wear your story</h1>
@@ -56,16 +53,15 @@ function Hero() {
   );
 }
 
+/* ===== Pages ===== */
 function Home() {
   return (
     <>
       <Hero />
-      {/* Floating “Custom Design Request” button on home */}
+      {/* Floating CTA */}
       <Link to="/custom" className="btn btn-outline-yellow fab">
         Custom Design Request
       </Link>
-
-      {/* If you want featured content, drop it here */}
       <main className="container" style={{ marginTop: 18 }} />
     </>
   );
@@ -104,7 +100,7 @@ function Products() {
 function Custom() {
   return (
     <>
-      {/* Loop-back button with same attributes as home CTA */}
+      {/* Loop-back button */}
       <Link to="/" className="btn btn-outline-yellow back-fab">
         ← Back to Home
       </Link>
@@ -116,7 +112,7 @@ function Custom() {
             Tell us what you want to wear and we’ll help you bring it to life.
           </p>
 
-          {/* Simple placeholder form — wire up later */}
+          {/* Placeholder form */}
           <div className="grid" style={{ gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <label>
               <div>Name</div>
