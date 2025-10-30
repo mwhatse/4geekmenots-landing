@@ -4,53 +4,83 @@ import { Routes, Route, Link } from "react-router-dom";
 import "./style.css";
 import { products, STORE_URL } from "./products.js";
 
-// Always show two decimals (USD)
+// currency helper
 const fmtUSD = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(n);
+  }).format(n ?? 0);
 
+// ====== PAGES ======
 function Home() {
   return (
-    <main className="page">
-      <h1 className="tag">Featured Tees</h1>
-
-      {/* Product grid */}
-      <section className="grid">
-        {products.map((p) => (
-          <article key={p.id} className="card">
-            <div className="thumb">
-              <img src={p.img} alt={p.title} loading="lazy" />
-            </div>
-
-            <div className="info">
-              <h2 className="title">{p.title}</h2>
-              {p.desc && <p className="desc">{p.desc}</p>}
-
-              <div className="row">
-                <span className="price">{fmtUSD(p.price ?? 0)}</span>
-                <a
-                  className="btn buy"
-                  href={p.url || STORE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on Etsy
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
+    <>
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-inner">
+          <h1 className="hero-title">Wear Your Story.</h1>
+          <p className="hero-sub">
+            Travel-tech, geek-chic tees. Minimal colors. Bold vibes.
+          </p>
+          <div className="hero-cta">
+            <a href={STORE_URL} target="_blank" rel="noreferrer" className="btn buy">
+              Shop on Etsy
+            </a>
+            <Link to="/custom" className="btn outline">Custom Design</Link>
+          </div>
+        </div>
       </section>
 
-      {/* Store footer link */}
-      <p className="store-more">
-        Want everything? <a href={STORE_URL} target="_blank" rel="noreferrer">See all listings →</a>
-      </p>
-    </main>
+      {/* FEATURED */}
+      <main className="page">
+        <h2 className="section-title">Featured Tees</h2>
+
+        <section className="grid">
+          {products.map((p) => (
+            <article key={p.id} className="card">
+              <div className="thumb">
+                <img src={p.img} alt={p.title} loading="lazy" />
+              </div>
+
+              <div className="info">
+                <h3 className="title">{p.title}</h3>
+                {p.desc && <p className="desc">{p.desc}</p>}
+
+                <div className="row">
+                  <span className="price">{fmtUSD(p.price)}</span>
+                  <a
+                    className="btn buy"
+                    href={p.url || STORE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View on Etsy
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <p className="store-more">
+          Want everything?{" "}
+          <a href={STORE_URL} target="_blank" rel="noreferrer">
+            See all listings →
+          </a>
+        </p>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="site-footer">
+        <div className="foot-inner">
+          <span>© {new Date().getFullYear()} 4GeekMeNot</span>
+          <a href={STORE_URL} target="_blank" rel="noreferrer">Etsy</a>
+          <Link to="/custom">Custom</Link>
+        </div>
+      </footer>
+    </>
   );
 }
 
@@ -60,13 +90,13 @@ function Custom() {
       <h1 className="tag hot">Custom Design Request</h1>
       <p>Tell us the destination, vibe, or idea. We’ll design it and send a proof.</p>
 
-      {/* Placeholder body — we’ll swap for your real form next */}
+      {/* Placeholder – you can ship with this or I’ll drop a real form next */}
       <div className="custom-placeholder">
         <p>
           Coming up: branded intake form (name, email, shirt color/size, design brief, upload, timeline).
         </p>
         <p>
-          If you’d rather start now, email us at <a href="mailto:hello@4geekmenot.com">hello@4geekmenot.com</a>.
+          Prefer email? <a href="mailto:hello@4geekmenot.com">hello@4geekmenot.com</a>
         </p>
       </div>
     </main>
@@ -88,7 +118,7 @@ export default function App() {
         <Route path="/custom" element={<Custom />} />
       </Routes>
 
-      {/* Floating CTA (bottom-right) */}
+      {/* Global floating CTA (bottom-right) */}
       <Link to="/custom" className="floating-cta" aria-label="Custom Design Request">
         Custom Design Request
       </Link>
