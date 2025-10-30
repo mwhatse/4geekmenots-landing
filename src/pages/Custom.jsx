@@ -1,5 +1,6 @@
+// src/pages/Custom.jsx
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css"; // <- fixed path (one level up from /pages)
 
 const EMAIL_TO = "hello@4geekmenot.com";
 
@@ -14,17 +15,18 @@ export default function Custom() {
     qty: "1–25",
     due: "",
     notes: "",
-    company: "", // honeypot
+    // honeypot for bots:
+    company: "",
   });
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = (e) => {
     e.preventDefault();
-    if (form.company?.trim()) return; // bot trap
+    if (form.company?.trim()) return; // bot filled hidden field → ignore
 
     const subject = encodeURIComponent("Custom Design Request — 4Geekmenot");
-    const body = [
+    const lines = [
       "CUSTOM REQUEST",
       "-------------------------",
       `Name:   ${form.name}`,
@@ -43,7 +45,7 @@ export default function Custom() {
     ].join("\n");
 
     window.location.href =
-      `mailto:${EMAIL_TO}?subject=${subject}&body=${encodeURIComponent(body)}`;
+      `mailto:${EMAIL_TO}?subject=${subject}&body=${encodeURIComponent(lines)}`;
   };
 
   return (
@@ -59,30 +61,60 @@ export default function Custom() {
 
           <div className="form-wrap">
             <form className="custom-form" onSubmit={submit} noValidate>
+              {/* Honeypot (hidden) */}
               <label className="hidden">
                 Company
-                <input name="company" value={form.company} onChange={update} tabIndex={-1} />
+                <input
+                  name="company"
+                  autoComplete="off"
+                  value={form.company}
+                  onChange={update}
+                  tabIndex={-1}
+                />
               </label>
 
               <div className="field two">
                 <label>
                   Full name
-                  <input required name="name" value={form.name} onChange={update} />
+                  <input
+                    required
+                    name="name"
+                    value={form.name}
+                    onChange={update}
+                    placeholder="e.g., Robert Jones"
+                  />
                 </label>
                 <label>
                   Email
-                  <input required type="email" name="email" value={form.email} onChange={update} />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={update}
+                    placeholder="your@email.com"
+                  />
                 </label>
               </div>
 
               <div className="field two">
                 <label>
                   Phone
-                  <input name="phone" value={form.phone} onChange={update} placeholder="optional" />
+                  <input
+                    name="phone"
+                    value={form.phone}
+                    onChange={update}
+                    placeholder="optional"
+                  />
                 </label>
                 <label>
                   Need by (date)
-                  <input type="date" name="due" value={form.due} onChange={update} />
+                  <input
+                    type="date"
+                    name="due"
+                    value={form.due}
+                    onChange={update}
+                  />
                 </label>
               </div>
 
@@ -101,12 +133,22 @@ export default function Custom() {
 
                 <label>
                   Colors
-                  <input name="colors" value={form.colors} onChange={update} />
+                  <input
+                    name="colors"
+                    value={form.colors}
+                    onChange={update}
+                    placeholder="Team colors or palette"
+                  />
                 </label>
 
                 <label>
                   Sizes
-                  <input name="sizes" value={form.sizes} onChange={update} />
+                  <input
+                    name="sizes"
+                    value={form.sizes}
+                    onChange={update}
+                    placeholder="e.g., S-3XL or kids/adult mix"
+                  />
                 </label>
               </div>
 
@@ -125,14 +167,23 @@ export default function Custom() {
               <div className="field">
                 <label>
                   Notes / concept (links welcome)
-                  <textarea rows="6" name="notes" value={form.notes} onChange={update}
-                    placeholder="DTF/UV DTF/embroidery, placements (e.g., left chest 3.5”), sizes, deadlines, links…" />
+                  <textarea
+                    rows="6"
+                    name="notes"
+                    value={form.notes}
+                    onChange={update}
+                    placeholder="Describe theme, colors, print method (DTF / UV DTF / embroidery), placements (front center 11” wide, left chest 3.5”, back 13.5x14”, sleeve 3x11), deadlines, inspiration links, etc."
+                  />
                 </label>
               </div>
 
               <div className="actions">
-                <button className="btn primary" type="submit">Send Request</button>
-                <a className="btn outline" href={`mailto:${EMAIL_TO}`}>Email Instead</a>
+                <button className="btn primary" type="submit">
+                  Send Request
+                </button>
+                <a className="btn outline" href={`mailto:${EMAIL_TO}`}>
+                  Email Instead
+                </a>
               </div>
             </form>
           </div>
