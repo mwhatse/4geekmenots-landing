@@ -1,4 +1,4 @@
-/* ===== 4Geekmenot — Global Styles (safe pass) ===== */
+/* ===== 4Geekmenot — Global Styles ===== */
 :root{
   --bg:#0b0f14;
   --panel:#10161e;
@@ -47,30 +47,29 @@ html,body{
     linear-gradient(180deg, #0b0f14, #0c1016);
   z-index:0;
 }
-.hero > *{position:relative; z-index:1} /* keep text/buttons above watermark */
+.hero > *{position:relative; z-index:1} /* content above watermark */
 .hero h1{font-size:72px;line-height:.95;margin:0 0 12px 0}
 .hero p{font-size:28px;color:var(--muted);margin:0 0 24px 0;max-width:980px}
 .hero .actions{display:flex;gap:16px;flex-wrap:wrap}
 
-/* Watermark element (add <div id="watermark" /> inside .hero) */
+/* Watermark image (ensure /public/img/watermark-log.png exists) */
 #watermark{
-  position:absolute; inset:0; z-index:0;            /* behind content */
+  position:absolute; inset:0; z-index:0;
   background:
     radial-gradient(transparent 30%, rgba(0,0,0,.45)),
     url("/img/watermark-log.png") center/900px no-repeat;
-  opacity:.08;                                       /* toned down */
+  opacity:.08;                /* dimmed per your ask */
   pointer-events:none;
   filter:saturate(.9) contrast(.95);
 }
 
-/* ===== Buttons (unified “Custom Request” style) ===== */
+/* ===== Buttons — unified like “Custom Design Request” ===== */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
   padding:14px 22px; border-radius:var(--radius); font-weight:700;
   line-height:1; text-decoration:none; user-select:none; cursor:pointer;
   transition:.16s ease-out; will-change:transform,box-shadow,background,color,border-color;
 }
-
 .btn-outline-yellow{
   border:2px solid var(--brand);
   color:var(--text);
@@ -83,7 +82,6 @@ html,body{
 }
 .btn-outline-yellow:active{transform:translateY(0)}
 
-/* Optional filled variant (not used yet) */
 .btn-filled-yellow{
   background:linear-gradient(180deg, #ffd34e, var(--brand));
   color:var(--brand-ink);
@@ -91,13 +89,11 @@ html,body{
 }
 .btn-filled-yellow:hover{box-shadow:0 0 0 6px var(--ring), var(--shadow); transform:translateY(-1px)}
 
-/* Floating action button on Home */
+/* Floating buttons */
 .fab{
   position:fixed; right:22px; bottom:22px; z-index:40;
   padding:16px 24px;
 }
-
-/* Back-to-home button on Custom page */
 .back-fab{
   position:fixed; left:22px; bottom:22px; z-index:40;
   padding:14px 20px;
