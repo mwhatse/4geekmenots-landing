@@ -4,10 +4,10 @@
   --panel:#10161e;
   --text:#e9eef5;
   --muted:#a9b4c0;
-  --brand:#f6c10a;           /* Yellow */
-  --brand-ink:#000000;       /* Black over yellow */
+  --brand:#f6c10a;
+  --brand-ink:#000000;
   --ring:rgba(246,193,10,.35);
-  --radius:999px;            /* pill radius */
+  --radius:999px;
   --shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
@@ -19,14 +19,12 @@ html,body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
 }
 
-/* ===== Layout ===== */
 .container{max-width:1200px;margin:0 auto;padding:24px}
 .grid{display:grid;gap:18px}
 .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:960px){.grid-3{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.grid-3{grid-template-columns:1fr}}
 
-/* ===== Header / Nav ===== */
 .header{
   position:sticky; top:0; z-index:50;
   background:rgba(11,15,20,.72);
@@ -39,7 +37,6 @@ html,body{
 .nav{display:flex;gap:12px;align-items:center}
 .nav a{text-decoration:none}
 
-/* ===== Hero & Watermark ===== */
 .hero{
   position:relative; overflow:hidden; border-radius:24px; padding:68px 24px;
   background:
@@ -47,23 +44,22 @@ html,body{
     linear-gradient(180deg, #0b0f14, #0c1016);
   z-index:0;
 }
-.hero > *{position:relative; z-index:1} /* content above watermark */
+.hero > *{position:relative; z-index:1}
 .hero h1{font-size:72px;line-height:.95;margin:0 0 12px 0}
 .hero p{font-size:28px;color:var(--muted);margin:0 0 24px 0;max-width:980px}
 .hero .actions{display:flex;gap:16px;flex-wrap:wrap}
 
-/* Watermark image (ensure /public/img/watermark-log.png exists) */
 #watermark{
   position:absolute; inset:0; z-index:0;
   background:
     radial-gradient(transparent 30%, rgba(0,0,0,.45)),
     url("/img/watermark-log.png") center/900px no-repeat;
-  opacity:.08;                /* dimmed per your ask */
+  opacity:.08;
   pointer-events:none;
   filter:saturate(.9) contrast(.95);
 }
 
-/* ===== Buttons — unified like “Custom Design Request” ===== */
+/* Buttons unified */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
   padding:14px 22px; border-radius:var(--radius); font-weight:700;
@@ -89,17 +85,9 @@ html,body{
 }
 .btn-filled-yellow:hover{box-shadow:0 0 0 6px var(--ring), var(--shadow); transform:translateY(-1px)}
 
-/* Floating buttons */
-.fab{
-  position:fixed; right:22px; bottom:22px; z-index:40;
-  padding:16px 24px;
-}
-.back-fab{
-  position:fixed; left:22px; bottom:22px; z-index:40;
-  padding:14px 20px;
-}
+.fab{position:fixed; right:22px; bottom:22px; z-index:40; padding:16px 24px;}
+.back-fab{position:fixed; left:22px; bottom:22px; z-index:40; padding:14px 20px;}
 
-/* ===== Cards (Products) ===== */
 .card{
   background:var(--panel); border:1px solid #0f141a; border-radius:18px; overflow:hidden;
   box-shadow:var(--shadow);
@@ -110,5 +98,4 @@ html,body{
 .card p{margin:0 0 10px 0; color:var(--muted); font-size:14px}
 .card .row{display:flex; justify-content:space-between; align-items:center; gap:10px}
 
-/* ===== Footer ===== */
 .footer{padding:28px 22px;color:var(--muted);text-align:center;border-top:1px solid #0f141a;margin-top:40px}
