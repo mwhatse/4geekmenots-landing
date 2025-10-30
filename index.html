@@ -40,5 +40,14 @@
 
     <!-- Vite/modern bundlers load your app here -->
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Fix any mailto link on the page to the correct address
+    document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+      a.setAttribute('href', 'mailto:4Geekmenots@gmail.com');
+    });
+  });
+</script>
+
   </body>
 </html>
