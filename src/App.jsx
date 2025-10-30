@@ -1,44 +1,58 @@
+// src/App.jsx
 import React from "react";
-import "./style.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "./style.css"; // make sure this line exists
 
 function Home() {
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ background: "#f6c10a", color: "#000", padding: 8, borderRadius: 8 }}>
-        HOME — live
-      </h1>
-      <p>Go to <Link to="/custom">/custom</Link> or <Link to="/zzz">/zzz</Link></p>
-    </div>
+    <main className="page">
+      <h1 className="tag">HOME — live</h1>
+      <p>
+        Go to <Link to="/custom">/custom</Link> or <Link to="/zzz">/zzz</Link>
+      </p>
+    </main>
   );
 }
 
 function Custom() {
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ background: "hotpink", color: "#000", padding: 8, borderRadius: 8 }}>
-        CUSTOM — live smoke test
-      </h1>
+    <main className="page">
+      <h1 className="tag hot">CUSTOM — live smoke test</h1>
       <p>If you can see this, routing is fixed. Next we swap in your branded form.</p>
-    </div>
+    </main>
+  );
+}
+
+function Zzz() {
+  return (
+    <main className="page">
+      <h1 className="tag">ZZZ</h1>
+      <p>Just a stub route.</p>
+    </main>
   );
 }
 
 export default function App() {
   return (
-    <div>
-      <nav style={{ padding: 12, borderBottom: "1px solid #333" }}>
-        <Link to="/" style={{ marginRight: 16 }}>Home</Link>
-        <Link to="/custom" style={{ marginRight: 16 }}>Custom</Link>
-        <Link to="/zzz">ZZZ</Link>
-      </nav>
+    <BrowserRouter>
+      <header className="topbar">
+        <nav className="nav">
+          <Link to="/">Home</Link>
+          <Link to="/custom">Custom</Link>
+          <Link to="/zzz">ZZZ</Link>
+        </nav>
+
+        {/* Floating CTA (also duplicated at the bottom for mobile accessibility) */}
+        <Link to="/custom" className="floating-cta" aria-label="Custom Design Request">
+          Custom Design Request
+        </Link>
+      </header>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<Custom />} />
-        <Route path="/zzz" element={<div style={{ padding: 24 }}>ZZZ LIVE</div>} />
-        <Route path="*" element={<div style={{ padding: 24 }}>404 (router is working)</div>} />
+        <Route path="/zzz" element={<Zzz />} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
