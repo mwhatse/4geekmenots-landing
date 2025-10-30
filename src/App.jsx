@@ -6,8 +6,10 @@ function Home() {
   return (
     <main className="page">
       <h1 className="tag">HOME — live</h1>
+      <p>Welcome to 4GeekMeNot — Wear Your Story.</p>
       <p>
-        Go to <Link to="/custom">/custom</Link> or <Link to="/zzz">/zzz</Link>
+        You can request a custom design using the button below or the link in
+        the menu.
       </p>
     </main>
   );
@@ -16,17 +18,11 @@ function Home() {
 function Custom() {
   return (
     <main className="page">
-      <h1 className="tag hot">CUSTOM — live smoke test</h1>
-      <p>If you can see this, routing is fixed. Next we swap in your branded form.</p>
-    </main>
-  );
-}
-
-function Zzz() {
-  return (
-    <main className="page">
-      <h1 className="tag">ZZZ</h1>
-      <p>Just a stub route.</p>
+      <h1 className="tag hot">Custom Design Request</h1>
+      <p>
+        Fill out your design details here. (We’ll drop your branded form in
+        this space next.)
+      </p>
     </main>
   );
 }
@@ -38,20 +34,18 @@ export default function App() {
         <nav className="nav">
           <Link to="/">Home</Link>
           <Link to="/custom">Custom</Link>
-          <Link to="/zzz">ZZZ</Link>
         </nav>
-
-        {/* Floating CTA */}
-        <Link to="/custom" className="floating-cta" aria-label="Custom Design Request">
-          Custom Design Request
-        </Link>
       </header>
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/custom" element={<Custom />} />
-        <Route path="/zzz" element={<Zzz />} />
       </Routes>
+
+      {/* Floating CTA (bottom-right) */}
+      <Link to="/custom" className="floating-cta" aria-label="Custom Design Request">
+        Custom Design Request
+      </Link>
     </>
   );
 }

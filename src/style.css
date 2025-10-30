@@ -1,5 +1,5 @@
 /* =============================
-   4GeekMeNot — Full Branded Stylesheet (bottom-right CTA)
+   4GeekMeNot — Full Branded Stylesheet (stable baseline)
    ============================= */
 
 :root {
@@ -10,19 +10,20 @@
 }
 
 /* ===== Reset & Base ===== */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+body {
   background: var(--bg);
   color: var(--text-light);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== Layout ===== */
 .page {
-  padding: 24px 24px 120px; /* extra bottom space so CTA never covers content */
+  padding: 24px 24px 120px; /* extra bottom room so CTA never covers content */
   max-width: 960px;
   margin: 0 auto;
 }
@@ -36,99 +37,75 @@ html, body, #root {
   backdrop-filter: saturate(1.2) blur(6px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-
 .nav {
   display: flex;
   align-items: center;
   gap: 20px;
   padding: 12px 16px;
 }
-
 .nav a {
   color: var(--text-light);
   text-decoration: none;
   opacity: 0.9;
-  font-weight: 500;
+  font-weight: 600;
   transition: opacity 0.15s ease;
 }
+.nav a:hover { opacity: 1; text-decoration: underline; }
 
-.nav a:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
-
-/* ===== Headings & Tags ===== */
+/* ===== Headings ===== */
 .tag {
   display: inline-block;
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
   padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 800;
+  border-radius: 12px;
+  font-weight: 900;
   font-size: 52px;
   line-height: 1;
   letter-spacing: -0.5px;
   margin: 0 0 16px 0;
 }
+.hot { background: hotpink; color: #000; }
 
-.hot {
-  background: hotpink;
-  color: #000;
-}
+/* ===== Text ===== */
+p { font-size: 18px; color: rgba(229, 231, 235, 0.9); margin-top: 0; }
 
-/* ===== Floating CTA Button (forced bottom-right) ===== */
-.floating-cta{
-  position: fixed !important;   /* lock to viewport */
+/* ===== Floating CTA (fixed bottom-right) ===== */
+.floating-cta {
+  position: fixed;                 /* viewport-fixed */
   right: calc(20px + env(safe-area-inset-right));
   bottom: calc(20px + env(safe-area-inset-bottom));
-  top: auto !important;         /* in case anything set top */
-  left: auto !important;
-  z-index: 999;
+  z-index: 9999;
   background: var(--brand-yellow);
   color: var(--ink);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.2px;
   padding: 16px 22px;
   border-radius: 9999px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 -2px 0 rgba(0,0,0,.15);
+  border: 2px solid rgba(0, 0, 0, 0.6);
   text-decoration: none;
-  border: 2px solid rgba(0,0,0,.6);
-  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
   font-size: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
 }
-
-.floating-cta:hover{
+.floating-cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 34px rgba(0,0,0,.4), inset 0 -2px 0 rgba(0,0,0,.25);
 }
-
-.floating-cta:active{
-  transform: translateY(0);
-  filter: brightness(.96);
-}
-
-/* ===== Text ===== */
-p{
-  font-size: 18px;
-  color: rgba(229,231,235,.9);
-  margin-top: 0;
-}
+.floating-cta:active { transform: translateY(0); filter: brightness(.96); }
 
 /* ===== Mobile ===== */
-@media (max-width: 520px){
-  .tag{ font-size: 40px; }
-  .floating-cta{
-    padding: 14px 18px;
-    font-size: 16px;
-  }
-  .page{ padding: 16px 16px 100px; }
+@media (max-width: 520px) {
+  .tag { font-size: 40px; }
+  .floating-cta { padding: 14px 18px; font-size: 16px; }
+  .page { padding: 16px 16px 100px; }
 }
 
-/* ===== Optional Animation ===== */
-@media (prefers-reduced-motion: no-preference){
-  .floating-cta{ animation: fadeIn .3s ease-out; }
+/* ===== Motion ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .floating-cta { animation: fadeIn .3s ease-out; }
 }
-@keyframes fadeIn{
-  from{ opacity:0; transform: translateY(5px); }
-  to{   opacity:1; transform: translateY(0); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
