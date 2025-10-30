@@ -2,12 +2,9 @@
 import React, { useState } from "react";
 
 export default function Custom() {
-  // default date = today
   const [deadline] = useState(() => {
     const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-      d.getDate()
-    ).padStart(2, "0")}`;
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   });
 
   return (
@@ -25,38 +22,25 @@ export default function Custom() {
         <div className="container grid-2">
           {/* LEFT: FORM CARD */}
           <div className="card form-card">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Submitted! (Wire this to Google Forms or your backend.)");
-              }}
-            >
-              {/* GROUP: CONTACT */}
+            <form onSubmit={(e) => { e.preventDefault(); alert("Submitted! (Wire to Google Forms or backend)"); }}>
+              {/* CONTACT */}
               <div className="brand-outline" style={{ padding: 16, marginBottom: 16 }}>
                 <h3 style={{ margin: 0, marginBottom: 8 }}>Contact</h3>
-
-                {/* 3 columns on desktop, 1 on mobile */}
                 <div className="form-row" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
                   <input className="input" name="name" placeholder="Name*" required />
-                  <input className="input" name="email" type="email" placeholder="Email*" required />
+                  <input className="input" type="email" name="email" placeholder="Email*" required />
                   <input className="input" name="phone" placeholder="Phone" />
                 </div>
-
                 <div className="form-row">
-                  <input
-                    className="input"
-                    name="title"
-                    placeholder="Project title*  e.g., 'AOP wrap: ATL Boarding Pass'"
-                    required
-                  />
+                  <input className="input" name="title" placeholder="Project title*  e.g., 'AOP wrap: ATL Boarding Pass'" required />
                 </div>
               </div>
 
-              {/* GROUP: PLACEMENT */}
+              {/* PLACEMENT */}
               <fieldset className="fieldset" style={{ marginBottom: 16 }}>
                 <legend>Placement <span className="kicker">(select all that apply)</span></legend>
                 <div className="checks">
-                  {["Front","Back","Left Sleeve","Right Sleeve","Hem Wrap","Neck Tag","All-Over (AOP)"].map((lbl) => (
+                  {["Front","Back","Left Sleeve","Right Sleeve","Hem Wrap","Neck Tag","All-Over (AOP)"].map(lbl => (
                     <label key={lbl} className="check">
                       <input type="checkbox" name="placement" value={lbl} />
                       <span>{lbl}</span>
@@ -65,19 +49,10 @@ export default function Custom() {
                 </div>
               </fieldset>
 
-              {/* GROUP: SPECS */}
-              <div
-                className="form-row"
-                style={{
-                  gridTemplateColumns:
-                    "minmax(120px,180px) 1fr 1fr minmax(120px,160px) minmax(160px,1fr)",
-                }}
-              >
+              {/* SPECS */}
+              <div className="form-row" style={{ gridTemplateColumns: "minmax(120px,180px) 1fr 1fr minmax(120px,160px) minmax(160px,1fr)" }}>
                 <select className="select" name="method" defaultValue="DTF" aria-label="Print method">
-                  <option>DTF</option>
-                  <option>Screen Print</option>
-                  <option>Embroidery</option>
-                  <option>Vinyl</option>
+                  <option>DTF</option><option>Screen Print</option><option>Embroidery</option><option>Vinyl</option>
                 </select>
                 <input className="input" name="baseColors" placeholder="Shirt/base colors  e.g., black, sand, heather" />
                 <input className="input" name="sizes" placeholder="Sizes  e.g., S:10, M:12, L:8, XL:4" />
@@ -90,15 +65,10 @@ export default function Custom() {
                 <input className="input" type="number" name="budget" placeholder="Budget (USD, optional)" min="0" />
               </div>
 
-              {/* GROUP: UPLOADS */}
+              {/* UPLOADS */}
               <div className="brand-outline" style={{ padding: 16, marginBottom: 16 }}>
-                <label style={{ display: "block", marginBottom: 8, fontWeight: 800 }}>
-                  Upload art / references
-                </label>
-                <p className="kicker" style={{ marginTop: 0, marginBottom: 8 }}>
-                  Max 6 files, up to 20MB each (PNG/JPG/PDF/SVG)
-                </p>
-                {/* keep .input to get branded file button */}
+                <label style={{ display: "block", marginBottom: 8, fontWeight: 800 }}>Upload art / references</label>
+                <p className="kicker" style={{ marginTop: 0, marginBottom: 8 }}>Max 6 files, up to 20MB each (PNG/JPG/PDF/SVG)</p>
                 <input className="input" type="file" name="files" accept=".png,.jpg,.jpeg,.pdf,.svg" multiple />
               </div>
 
@@ -106,10 +76,7 @@ export default function Custom() {
               <div className="form-row">
                 <button type="submit" className="button-brand button-lg">Submit Request</button>
               </div>
-
-              <p className="kicker" style={{ marginTop: 6 }}>
-                We’ll reply within 24–48 hours with a concept & quote.
-              </p>
+              <p className="kicker" style={{ marginTop: 6 }}>We’ll reply within 24–48 hours with a concept & quote.</p>
             </form>
           </div>
 
