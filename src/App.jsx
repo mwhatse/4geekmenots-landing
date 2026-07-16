@@ -197,13 +197,22 @@ function ProductCatalog() {
 }
 
 function CustomOrderForm() {
+  const [step, setStep] = useState("form");
+  const [draft, setDraft] = useState(null);
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const [submitting, setSubmitting] = useState(false);
 
-  async function handleSubmit(event) {
+  function handleReview(event) {
     event.preventDefault();
-    const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
+    const data = Object.fromEntries(new FormData(event.currentTarget));
+    setDraft(data);
+    setStatus({ type: "idle", message: "" });
+    setStep("review");
+  }
+
+  async function handleSend() {
+    if (!draft) return;
+
     setSubmitting(true);
     setStatus({ type: "idle", message: "" });
 
@@ -211,7 +220,7 @@ function CustomOrderForm() {
       const response = await fetch(siteConfig.quoteEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(draft),
       });
       const result = await response.json().catch(() => ({}));
 
@@ -219,12 +228,7 @@ function CustomOrderForm() {
         throw new Error(result.error || "We could not submit your request. Please try again.");
       }
 
-      form.reset();
-      const reference = result.requestNumber ? ` Reference: ${result.requestNumber}.` : "";
-      setStatus({
-        type: "success",
-        message: `Your quote request is in the RJ Creative Group dashboard.${reference} Watch your email for confirmation and next steps.`,
-      });
+      setStep("sent");
     } catch (error) {
       setStatus({
         type: "error",
@@ -235,27 +239,115 @@ function CustomOrderForm() {
     }
   }
 
+  function startAnotherRequest() {
+    setDraft(null);
+    setStatus({ type: "idle", message: "" });
+    setStep("form");
+  }
+
+  const reviewItems = draft ? [
+    ["Name", draft.name],
+    ["Email", draft.email],
+    ["Phone", draft.phone || "Not provided"],
+    ["Project type", draft.projectType],
+    ["Estimated quantity", draft.quantity || "Not specified"],
+    ["Needed by", draft.deadline
+      ? new Date(`${draft.deadline}T00:00:00`).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })
+      : "Not specified"],
+  ] : [];
+
+  if (step === "review" && draft) {
+    return (
+      <section className="quote-form quote-review" aria-labelledby="quote-review-title">
+        <div className="review-heading">
+          <p className="review-step">Review your request</p>
+          <h3 id="quote-review-title">Check everything before sending.</h3>
+          <p>Nothing has been sent yet. Confirm the details below, then send the request to RJ Creative Group.</p>
+        </div>
+
+        <dl className="review-list">
+          {reviewItems.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+          <div className="review-details">
+            <dt>What you want to make</dt>
+            <dd>{draft.details}</dd>
+          </div>
+        </dl>
+
+        {status.message && (
+          <p className="form-status form-status-error" role="alert">
+            {status.message}
+          </p>
+        )}
+
+        <div className="review-actions">
+          <button
+            className="button button-outline"
+            type="button"
+            onClick={() => setStep("form")}
+            disabled={submitting}
+          >
+            Back to edit
+          </button>
+          <button
+            className="button button-accent"
+            type="button"
+            onClick={handleSend}
+            disabled={submitting}
+          >
+            {submitting ? "Sending request..." : "Send quote request"}
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  if (step === "sent") {
+    return (
+      <section className="quote-form quote-confirmation" aria-labelledby="quote-sent-title" role="status" aria-live="polite">
+        <div className="confirmation-mark">Sent</div>
+        <p className="review-step">Request delivered</p>
+        <h3 id="quote-sent-title">Your quote request was sent.</h3>
+        <p>
+          RJ Creative Group received your custom apparel request in the quote dashboard. We will review the details and follow up with next steps.
+        </p>
+        <p className="confirmation-note">You can close this page. There is nothing else you need to submit.</p>
+        <button className="button button-outline" type="button" onClick={startAnotherRequest}>
+          Send another request
+        </button>
+      </section>
+    );
+  }
+
   return (
-    <form className="quote-form" onSubmit={handleSubmit}>
+    <form className="quote-form" onSubmit={handleReview}>
       <div className="field-row">
         <label>
           Name
-          <input name="name" type="text" autoComplete="name" required />
+          <input name="name" type="text" autoComplete="name" defaultValue={draft?.name || ""} required />
         </label>
         <label>
           Email
-          <input name="email" type="email" autoComplete="email" required />
+          <input name="email" type="email" autoComplete="email" defaultValue={draft?.email || ""} required />
         </label>
       </div>
 
       <div className="field-row">
         <label>
           Phone
-          <input name="phone" type="tel" autoComplete="tel" placeholder="Optional" />
+          <input name="phone" type="tel" autoComplete="tel" placeholder="Optional" defaultValue={draft?.phone || ""} />
         </label>
         <label>
           Project type
-          <select name="projectType" defaultValue="" required>
+          <select name="projectType" defaultValue={draft?.projectType || ""} required>
             <option value="" disabled>Select one</option>
             <option>One personalized item</option>
             <option>Family or group order</option>
@@ -270,17 +362,17 @@ function CustomOrderForm() {
       <div className="field-row">
         <label>
           Estimated quantity
-          <input name="quantity" type="number" min="1" inputMode="numeric" placeholder="Optional" />
+          <input name="quantity" type="number" min="1" inputMode="numeric" placeholder="Optional" defaultValue={draft?.quantity || ""} />
         </label>
         <label>
           Needed by
-          <input name="deadline" type="date" />
+          <input name="deadline" type="date" defaultValue={draft?.deadline || ""} />
         </label>
       </div>
 
       <label>
         Tell us what you want to make
-        <textarea name="details" rows="5" minLength="10" required placeholder="Product type, colors, sizes, artwork, occasion, and anything else that matters." />
+        <textarea name="details" rows="5" minLength="10" required defaultValue={draft?.details || ""} placeholder="Product type, colors, sizes, artwork, occasion, and anything else that matters." />
       </label>
 
       <label className="honeypot-field" aria-hidden="true">
@@ -289,16 +381,11 @@ function CustomOrderForm() {
       </label>
 
       <p className="form-note">
-        This creates a request directly in the RJ Creative Group quote dashboard. You will stay on this page.
+        You will review these details before anything is sent.
       </p>
-      <button className="button button-accent" type="submit" disabled={submitting}>
-        {submitting ? "Submitting request..." : "Submit quote request"}
+      <button className="button button-accent" type="submit">
+        Review request
       </button>
-      {status.message && (
-        <p className={`form-status form-status-${status.type}`} role="status" aria-live="polite">
-          {status.message}
-        </p>
-      )}
     </form>
   );
 }
@@ -402,7 +489,7 @@ function Footer() {
         <div className="footer-links">
           <a href="#shop">Shop</a>
           <a href="#custom">Custom apparel</a>
-          <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+          {siteConfig.rjSiteUrl && <a href={siteConfig.rjSiteUrl}>RJ Creative Group</a>}
         </div>
         <small>Copyright {new Date().getFullYear()} RJ Creative Group LLC.</small>
       </div>
