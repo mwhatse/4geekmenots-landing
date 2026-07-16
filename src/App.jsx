@@ -197,26 +197,42 @@ function ProductCatalog() {
 }
 
 function CustomOrderForm() {
-  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState({ type: "idle", message: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(event.currentTarget));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setSubmitting(true);
+    setStatus({ type: "idle", message: "" });
 
-    if (siteConfig.quoteUrl) {
-      const destination = new URL(siteConfig.quoteUrl);
-      Object.entries(data).forEach(([key, value]) => destination.searchParams.set(key, value));
-      destination.searchParams.set("source", "4geekmenot");
-      window.location.assign(destination.toString());
-      return;
+    try {
+      const response = await fetch(siteConfig.quoteEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || "We could not submit your request. Please try again.");
+      }
+
+      form.reset();
+      const reference = result.requestNumber ? ` Reference: ${result.requestNumber}.` : "";
+      setStatus({
+        type: "success",
+        message: `Your quote request is in the RJ Creative Group dashboard.${reference} Watch your email for confirmation and next steps.`,
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: error instanceof Error ? error.message : "We could not submit your request. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
     }
-
-    const subject = encodeURIComponent(`Custom apparel request from ${data.name}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nEmail: ${data.email}\nProject type: ${data.projectType}\nQuantity: ${data.quantity || "Not sure"}\nNeeded by: ${data.deadline || "Flexible"}\n\nProject details:\n${data.details}`,
-    );
-    setMessage("Your email app should open with the project details ready to send.");
-    window.location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -234,6 +250,10 @@ function CustomOrderForm() {
 
       <div className="field-row">
         <label>
+          Phone
+          <input name="phone" type="tel" autoComplete="tel" placeholder="Optional" />
+        </label>
+        <label>
           Project type
           <select name="projectType" defaultValue="" required>
             <option value="" disabled>Select one</option>
@@ -245,25 +265,40 @@ function CustomOrderForm() {
             <option>Not sure yet</option>
           </select>
         </label>
+      </div>
+
+      <div className="field-row">
         <label>
           Estimated quantity
           <input name="quantity" type="number" min="1" inputMode="numeric" placeholder="Optional" />
         </label>
+        <label>
+          Needed by
+          <input name="deadline" type="date" />
+        </label>
       </div>
 
       <label>
-        Needed by
-        <input name="deadline" type="date" />
-      </label>
-
-      <label>
         Tell us what you want to make
-        <textarea name="details" rows="5" required placeholder="Product type, colors, sizes, artwork, occasion, and anything else that matters." />
+        <textarea name="details" rows="5" minLength="10" required placeholder="Product type, colors, sizes, artwork, occasion, and anything else that matters." />
       </label>
 
-      <p className="form-note">Artwork and detailed files can be shared after we review your project.</p>
-      <button className="button button-accent" type="submit">Send project brief</button>
-      {message && <p className="form-status" role="status">{message}</p>}
+      <label className="honeypot-field" aria-hidden="true">
+        Website
+        <input name="website" type="text" tabIndex="-1" autoComplete="off" />
+      </label>
+
+      <p className="form-note">
+        This creates a request directly in the RJ Creative Group quote dashboard. You will stay on this page.
+      </p>
+      <button className="button button-accent" type="submit" disabled={submitting}>
+        {submitting ? "Submitting request..." : "Submit quote request"}
+      </button>
+      {status.message && (
+        <p className={`form-status form-status-${status.type}`} role="status" aria-live="polite">
+          {status.message}
+        </p>
+      )}
     </form>
   );
 }

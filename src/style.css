@@ -740,6 +740,19 @@ p {
   width: fit-content;
 }
 
+.quote-form .button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.honeypot-field {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
 .form-note,
 .form-status {
   margin-bottom: 0;
@@ -748,6 +761,11 @@ p {
 
 .form-status {
   color: var(--accent);
+  line-height: 1.5;
+}
+
+.form-status-error {
+  color: var(--danger);
 }
 
 .process-section {
