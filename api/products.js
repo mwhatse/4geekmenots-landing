@@ -279,7 +279,7 @@ export default async function handler(request, response) {
         products,
         syncedAt: new Date().toISOString(),
       },
-      "public, s-maxage=300, stale-while-revalidate=86400",
+      "public, max-age=0, s-maxage=60, stale-while-revalidate=60",
     );
   } catch (error) {
     console.error("Printify catalog sync failed.", error instanceof Error ? error.message : "Unknown error");
