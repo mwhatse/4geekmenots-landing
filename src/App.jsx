@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { collections, products, STORE_URL } from "./products.js";
 import { siteConfig } from "./config.js";
 import "./style.css";
@@ -12,11 +12,16 @@ const fmtUSD = (value) =>
   }).format(value);
 
 function ProductImage({ product, eager = false, className = "" }) {
+  const fallbackImage = product.fallbackImage || product.image;
+  const hasAvifSource = product.image
+    && product.image !== fallbackImage
+    && product.image.split("?")[0].toLowerCase().endsWith(".avif");
+
   return (
     <picture className={className}>
-      <source srcSet={product.image} type="image/avif" />
+      {hasAvifSource && <source srcSet={product.image} type="image/avif" />}
       <img
-        src={product.fallbackImage}
+        src={fallbackImage}
         alt={product.alt}
         width="1200"
         height="1200"
@@ -26,6 +31,45 @@ function ProductImage({ product, eager = false, className = "" }) {
       />
     </picture>
   );
+}
+
+function getEtsyListingId(url) {
+  return url?.match(/\/listing\/(\d+)/)?.[1] || null;
+}
+
+function mergeAutomatedCatalog(automatedProducts, curatedProducts) {
+  const curatedByListing = new Map(
+    curatedProducts
+      .map((product) => [getEtsyListingId(product.url), product])
+      .filter(([listingId]) => listingId),
+  );
+  const automatedListingIds = new Set();
+
+  const mergedProducts = automatedProducts.map((automatedProduct) => {
+    const listingId = automatedProduct.etsyListingId || getEtsyListingId(automatedProduct.url);
+    if (listingId) automatedListingIds.add(listingId);
+
+    const curatedProduct = listingId ? curatedByListing.get(listingId) : null;
+    if (!curatedProduct) return automatedProduct;
+
+    return {
+      ...automatedProduct,
+      ...curatedProduct,
+      price: automatedProduct.price,
+      url: automatedProduct.url,
+      printifyId: automatedProduct.printifyId,
+      etsyListingId: listingId,
+      createdAt: automatedProduct.createdAt,
+      updatedAt: automatedProduct.updatedAt,
+    };
+  });
+
+  const unmatchedCuratedProducts = curatedProducts.filter((product) => {
+    const listingId = getEtsyListingId(product.url);
+    return !listingId || !automatedListingIds.has(listingId);
+  });
+
+  return [...mergedProducts, ...unmatchedCuratedProducts];
 }
 
 function Header() {
@@ -136,11 +180,40 @@ function CustomerPaths() {
 
 function ProductCatalog() {
   const [activeCollection, setActiveCollection] = useState("all");
+  const [catalogProducts, setCatalogProducts] = useState(products);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadAutomatedCatalog() {
+      try {
+        const response = await fetch("/api/products", {
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+        });
+
+        if (!response.ok) return;
+
+        const result = await response.json();
+        if (!Array.isArray(result.products) || result.products.length === 0) return;
+
+        setCatalogProducts(mergeAutomatedCatalog(result.products, products));
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          console.warn("Using the saved catalog because the automated feed is unavailable.");
+        }
+      }
+    }
+
+    loadAutomatedCatalog();
+    return () => controller.abort();
+  }, []);
+
   const visibleProducts = useMemo(
     () => activeCollection === "all"
-      ? products
-      : products.filter((product) => product.collection === activeCollection),
-    [activeCollection],
+      ? catalogProducts
+      : catalogProducts.filter((product) => product.collection === activeCollection),
+    [activeCollection, catalogProducts],
   );
 
   return (
