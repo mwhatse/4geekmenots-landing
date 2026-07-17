@@ -12,6 +12,20 @@ export const collections = [
 
 export const products = [
   {
+    id: "rooted-in-black-joy",
+    title: "Rooted in Black Joy Tee",
+    image: "/products/rooted-in-black-joy.avif",
+    fallbackImage: "/img/rooted-in-black-joy.jpg",
+    alt: "Natural-colored T-shirt with Rooted in Black Joy lettering, tropical leaves, and a potted plant",
+    description: "A plant-filled celebration of Black joy, grounded identity, and the strength to keep growing.",
+    collection: "culture",
+    collectionLabel: "Culture",
+    url: "https://www.etsy.com/listing/4539220362/rooted-in-black-joy-t-shirt-plant-leaves",
+    price: 25.99,
+    fulfillment: "printify",
+    featured: true,
+  },
+  {
     id: "atl-pride-boarding-pass",
     title: "ATL Pride Boarding Pass Tee",
     image: "/products/atl-boarding-pass.avif",
