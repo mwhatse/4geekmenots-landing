@@ -72,6 +72,43 @@ function mergeAutomatedCatalog(automatedProducts, curatedProducts) {
   return [...mergedProducts, ...unmatchedCuratedProducts];
 }
 
+function useCatalogProducts() {
+  const [catalogProducts, setCatalogProducts] = useState(products);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadAutomatedCatalog() {
+      try {
+        const response = await fetch("/api/products", {
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+        });
+
+        if (!response.ok) return;
+
+        const result = await response.json();
+        if (!Array.isArray(result.products) || result.products.length === 0) return;
+
+        setCatalogProducts(mergeAutomatedCatalog(result.products, products));
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          console.warn("Using the saved catalog because the automated feed is unavailable.");
+        }
+      }
+    }
+
+    loadAutomatedCatalog();
+    return () => controller.abort();
+  }, []);
+
+  return catalogProducts;
+}
+
+function getDisplayTitle(title) {
+  return title?.split("|")[0]?.trim() || title;
+}
+
 function Header() {
   const navItems = [
     ["Shop", "#shop"],
@@ -114,9 +151,8 @@ function Header() {
   );
 }
 
-function Hero() {
-  const heroProduct = products.find((product) => product.id === "atl-pride-boarding-pass");
-  const supportingProduct = products.find((product) => product.id === "mental-health-wealth-crowned");
+function Hero({ catalogProducts }) {
+  const heroProducts = catalogProducts.slice(0, 3);
 
   return (
     <section className="hero" aria-labelledby="hero-title">
@@ -134,14 +170,35 @@ function Hero() {
         </div>
 
         <div className="hero-art" aria-label="Featured 4GeekMeNot apparel">
-          <figure className="hero-product hero-product-main">
-            <ProductImage product={heroProduct} eager />
-            <figcaption>ATL Pride Boarding Pass</figcaption>
-          </figure>
-          <figure className="hero-product hero-product-secondary">
-            <ProductImage product={supportingProduct} eager />
-            <figcaption>Mental Health Is Wealth</figcaption>
-          </figure>
+          {heroProducts.map((product, index) => (
+            <figure
+              className={`hero-product ${
+                index === 0
+                  ? "hero-product-main"
+                  : index === 1
+                    ? "hero-product-secondary"
+                    : "hero-product-tertiary"
+              }`}
+              key={product.id}
+            >
+              <a
+                className="hero-product-link"
+                href={product.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`View ${product.title} on Etsy`}
+              >
+                <ProductImage product={product} eager={index === 0} />
+              </a>
+              <figcaption>
+                <span className="hero-product-meta">
+                  <span>{product.collectionLabel}</span>
+                  <span>From {fmtUSD(product.price)}</span>
+                </span>
+                <strong>{getDisplayTitle(product.title)}</strong>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
@@ -178,36 +235,8 @@ function CustomerPaths() {
   );
 }
 
-function ProductCatalog() {
+function ProductCatalog({ catalogProducts }) {
   const [activeCollection, setActiveCollection] = useState("all");
-  const [catalogProducts, setCatalogProducts] = useState(products);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadAutomatedCatalog() {
-      try {
-        const response = await fetch("/api/products", {
-          headers: { Accept: "application/json" },
-          signal: controller.signal,
-        });
-
-        if (!response.ok) return;
-
-        const result = await response.json();
-        if (!Array.isArray(result.products) || result.products.length === 0) return;
-
-        setCatalogProducts(mergeAutomatedCatalog(result.products, products));
-      } catch (error) {
-        if (error?.name !== "AbortError") {
-          console.warn("Using the saved catalog because the automated feed is unavailable.");
-        }
-      }
-    }
-
-    loadAutomatedCatalog();
-    return () => controller.abort();
-  }, []);
 
   const visibleProducts = useMemo(
     () => activeCollection === "all"
@@ -571,14 +600,16 @@ function Footer() {
 }
 
 export default function App() {
+  const catalogProducts = useCatalogProducts();
+
   return (
     <div id="top">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Header />
       <main id="main-content">
-        <Hero />
+        <Hero catalogProducts={catalogProducts} />
         <CustomerPaths />
-        <ProductCatalog />
+        <ProductCatalog catalogProducts={catalogProducts} />
         <CustomApparel />
         <Process />
         <About />
