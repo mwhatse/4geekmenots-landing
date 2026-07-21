@@ -239,17 +239,4 @@ export const products = [
     price: 35.99,
     fulfillment: "printify",
   },
-  {
-    id: "certified-rainbow-ally",
-    title: "Certified Rainbow Ally",
-    image: "/products/certified-rainbow-ally.avif",
-    fallbackImage: "/img/certified-rainbow-ally.png",
-    alt: "Pride T-shirt mockup with Certified Rainbow Ally artwork",
-    description: "A proud, direct design for showing up with love and standing beside community.",
-    collection: "pride",
-    collectionLabel: "Pride",
-    url: "https://www.etsy.com/listing/4355134835",
-    price: 25.99,
-    fulfillment: "printify",
-  },
 ];
