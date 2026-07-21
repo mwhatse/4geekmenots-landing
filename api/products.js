@@ -3,6 +3,11 @@ const PAGE_SIZE = 50;
 const MAX_PAGES = 20;
 let discoveredShopId = "";
 
+const HIDDEN_PRODUCT_TITLE_PREFIXES = [
+  "certified rainbow ally heavy tee of love & sass",
+  "woke up gay again shirt",
+];
+
 const COLLECTIONS = [
   {
     id: "travel",
@@ -73,6 +78,11 @@ function shortenDescription(value, maxLength = 170) {
   const shortened = plainText.slice(0, maxLength + 1);
   const lastSpace = shortened.lastIndexOf(" ");
   return `${shortened.slice(0, lastSpace > 80 ? lastSpace : maxLength).trim()}...`;
+}
+
+function isHiddenProduct(product) {
+  const title = stripHtml(product?.title).toLowerCase();
+  return HIDDEN_PRODUCT_TITLE_PREFIXES.some((prefix) => title.startsWith(prefix));
 }
 
 function classifyCollection(product) {
@@ -266,6 +276,7 @@ export default async function handler(request, response) {
     const shopId = await resolveShopId(configuredShopId, token);
     const printifyProducts = await fetchAllProducts(shopId, token);
     const products = printifyProducts
+      .filter((product) => !isHiddenProduct(product))
       .map(normalizeProduct)
       .filter(Boolean)
       .sort((a, b) => Date.parse(b.createdAt || 0) - Date.parse(a.createdAt || 0));
