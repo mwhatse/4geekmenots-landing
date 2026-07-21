@@ -10,6 +10,41 @@ export const collections = [
   { id: "humor", label: "Humor" },
 ];
 
+export const productImageOverrides = {
+  "4371560845": {
+    image: "/products/atl-ams-dark.avif",
+    fallbackImage: "/img/atl-ams-dark.png",
+  },
+  "4371511742": {
+    image: "/products/atl-cdg-dark.avif",
+    fallbackImage: "/img/atl-cdg-dark.png",
+  },
+  "4370726635": {
+    image: "/products/mental-health-wealth-pride-dark.avif",
+    fallbackImage: "/img/mental-health-wealth-pride.png",
+  },
+  "4364583174": {
+    image: "/products/fets-luck-dark.avif",
+    fallbackImage: "/img/fets-luck-dark.png",
+  },
+  "4364549328": {
+    image: "/products/heal-tee-dark.avif",
+    fallbackImage: "/img/heal.png",
+  },
+  "4359601916": {
+    image: "/products/heal-tee-dark.avif",
+    fallbackImage: "/img/heal.png",
+  },
+  "4355717291": {
+    image: "/products/equality-division-hat-dark.avif",
+    fallbackImage: "/img/equality-division-hat-dark.png",
+  },
+  "4355184497": {
+    image: "/products/saiyan-power-dark.avif",
+    fallbackImage: "/img/saiyan-power-dark.png",
+  },
+};
+
 export const products = [
   {
     id: "love-ord-chicago",
@@ -24,6 +59,7 @@ export const products = [
     price: 29.99,
     fulfillment: "printify",
     featured: true,
+    preserveAutomatedImage: true,
   },
   {
     id: "love-dfw-dallas",
@@ -38,6 +74,7 @@ export const products = [
     price: 29.99,
     fulfillment: "printify",
     featured: true,
+    preserveAutomatedImage: true,
   },
   {
     id: "love-atl-ramp-life",
@@ -52,12 +89,13 @@ export const products = [
     price: 36.5,
     fulfillment: "printify",
     featured: true,
+    preserveAutomatedImage: true,
   },
   {
     id: "rooted-in-black-joy",
     title: "Rooted in Black Joy Tee",
-    image: "/products/rooted-in-black-joy.avif",
-    fallbackImage: "/img/rooted-in-black-joy.jpg",
+    image: "/products/rooted-in-black-joy-dark.avif",
+    fallbackImage: "/img/rooted-in-black-joy-dark.png",
     alt: "Natural-colored T-shirt with Rooted in Black Joy lettering, tropical leaves, and a potted plant",
     description: "A plant-filled celebration of Black joy, grounded identity, and the strength to keep growing.",
     collection: "culture",
@@ -70,8 +108,8 @@ export const products = [
   {
     id: "atl-pride-boarding-pass",
     title: "ATL Pride Boarding Pass Tee",
-    image: "/products/atl-boarding-pass-studio.avif",
-    fallbackImage: "/img/atl-boarding-pass-studio.png",
+    image: "/products/atl-boarding-pass.avif",
+    fallbackImage: "/img/atl-boarding-pass.png",
     alt: "Red T-shirt with a yellow ATL Pride boarding pass graphic",
     description: "A flight-tag design celebrating Atlanta, chosen family, and joy.",
     collection: "pride",
@@ -147,6 +185,7 @@ export const products = [
     url: "https://www.etsy.com/listing/4373799355/unisex-heavy-cotton-tee",
     price: 25.99,
     fulfillment: "printify",
+    preserveAutomatedImage: true,
   },
   {
     id: "equality-division",
@@ -190,8 +229,8 @@ export const products = [
   {
     id: "non-rev-barcode",
     title: "Non-Rev Life Barcode",
-    image: "/products/non-rev-life-barcode-studio.avif",
-    fallbackImage: "/img/non-rev-life-barcode-studio.png",
+    image: "/products/non-rev-life-barcode.avif",
+    fallbackImage: "/img/non-rev-life-barcode.png",
     alt: "Travel apparel mockup with a Non-Rev Life barcode design",
     description: "A nod to standby warriors, gate changes, and the thrill of an open seat.",
     collection: "travel",
