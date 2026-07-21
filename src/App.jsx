@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { collections, products, STORE_URL } from "./products.js";
+import { collections, productImageOverrides, products, STORE_URL } from "./products.js";
 import { siteConfig } from "./config.js";
 import "./style.css";
 
@@ -50,13 +50,22 @@ function mergeAutomatedCatalog(automatedProducts, curatedProducts) {
     if (listingId) automatedListingIds.add(listingId);
 
     const curatedProduct = listingId ? curatedByListing.get(listingId) : null;
-    if (!curatedProduct) return automatedProduct;
+    const imageOverride = listingId ? productImageOverrides[listingId] : null;
+    if (!curatedProduct) {
+      return imageOverride
+        ? { ...automatedProduct, ...imageOverride }
+        : automatedProduct;
+    }
+
+    const preserveAutomatedImage = curatedProduct.preserveAutomatedImage === true;
 
     return {
       ...automatedProduct,
       ...curatedProduct,
-      image: automatedProduct.image,
-      fallbackImage: automatedProduct.fallbackImage,
+      image: preserveAutomatedImage ? automatedProduct.image : curatedProduct.image,
+      fallbackImage: preserveAutomatedImage
+        ? automatedProduct.fallbackImage
+        : curatedProduct.fallbackImage,
       price: automatedProduct.price,
       url: automatedProduct.url,
       printifyId: automatedProduct.printifyId,
