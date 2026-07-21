@@ -55,6 +55,8 @@ function mergeAutomatedCatalog(automatedProducts, curatedProducts) {
     return {
       ...automatedProduct,
       ...curatedProduct,
+      image: automatedProduct.image,
+      fallbackImage: automatedProduct.fallbackImage,
       price: automatedProduct.price,
       url: automatedProduct.url,
       printifyId: automatedProduct.printifyId,
